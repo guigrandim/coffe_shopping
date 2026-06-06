@@ -1,0 +1,8 @@
+# Geração do dashboard (generate_dashboard.py)
+# Utiliza apenas a biblioteca padrão do Python — nenhuma instalação necessária.
+# Python >= 3.8
+
+# Análise exploratória dos dados (não inclusa no repositório)
+# Caso queira reproduzir a análise que gerou hypothesis_data.json:
+pandas>=2.0
+numpy>=1.24

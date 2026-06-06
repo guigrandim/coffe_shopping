@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<title>Resumo Executivo · Coffee Shop Analytics</title>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="assets/resource_3fa48481346f.js"></script>
+<script src="assets/lucide_latest_2eebd0ebe8c2.js"></script>
+<link href="assets/css2_86e10c4bcbd4.css" rel="stylesheet"/>
+<style>.font-geist { font-family: 'Geist', system-ui, sans-serif !important; }</style>
+<link href="assets/css2_0b2072b66163.css" rel="stylesheet"/>
+<style>.font-jakarta { font-family: 'Plus Jakarta Sans', system-ui, sans-serif !important; }</style>
+<style>
+[style*="--border-gradient"]::before {
+  content: ""; position: absolute; inset: 0; padding: 1px;
+  border-radius: var(--border-radius-before, inherit);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  background: var(--border-gradient); pointer-events: none;
+}
+ul.bullets { list-style: none; margin: 0; padding: 0; }
+ul.bullets li { display: flex; gap: 10px; align-items: flex-start; padding: 5px 0; }
+ul.bullets li::before { content: ""; display: block; width: 5px; height: 5px; border-radius: 50%; margin-top: 6px; flex-shrink: 0; }
+ul.bullets.emerald li::before { background: #34d399; }
+ul.bullets.sky li::before { background: #38bdf8; }
+ul.bullets.amber li::before { background: #fbbf24; }
+ul.bullets.violet li::before { background: #a78bfa; }
+ul.bullets.rose li::before { background: #fb7185; }
+ul.bullets.neutral li::before { background: #737373; }
+</style>
+</head>
+<body class="min-h-screen bg-neutral-950 text-white antialiased font-geist">
+
+<!-- Background -->
+<div class="fixed top-0 w-full h-screen -z-10 opacity-40" style="mask-image:linear-gradient(to bottom,transparent,black 0%,black 80%,transparent)">
+  <div class="absolute inset-0" style="background:radial-gradient(ellipse 80% 50% at 20% 20%, rgba(56,189,248,0.12) 0%, transparent 60%), radial-gradient(ellipse 60% 40% at 80% 60%, rgba(245,158,11,0.08) 0%, transparent 60%), radial-gradient(ellipse 50% 60% at 50% 90%, rgba(139,92,246,0.08) 0%, transparent 60%)"></div>
+</div>
+
+<div class="min-h-screen flex flex-col">
+<main class="flex-1">
+<div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+
+  <!-- ===== HEADER ===== -->
+  <div class="mb-10">
+    <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-2">
+      <div>
+        <p class="text-[11px] font-medium uppercase tracking-[0.18em] text-neutral-500 mb-2">Análise · Jan–Jun 2023</p>
+        <h1 class="text-[28px] sm:text-[32px] font-semibold tracking-tight leading-tight">Resumo Executivo</h1>
+        <p class="text-neutral-400 text-sm mt-1">Coffee Shop Analytics · Rede de 3 Lojas · Gerente de Operações</p>
+      </div>
+      <a href="index.html" class="inline-flex items-center gap-2 rounded-2xl bg-white/5 border border-white/10 px-4 py-2 text-[11px] text-neutral-400 hover:bg-white/8 transition-colors self-start sm:self-auto">
+        <i data-lucide="bar-chart-2" class="w-3.5 h-3.5"></i>
+        Ver dashboard completo
+      </a>
+    </div>
+  </div>
+
+  <!-- ===== KPIs ===== -->
+  <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-8">
+    <div class="bg-gradient-to-br from-white/[0.07] to-white/0 rounded-3xl border border-white/[0.08] p-4">
+      <p class="text-[10px] uppercase tracking-[0.14em] text-neutral-500 mb-1">Faturamento Total</p>
+      <p class="text-[22px] font-semibold tracking-tight text-amber-300">R$ 698k</p>
+      <p class="text-[11px] text-neutral-500 mt-0.5">Jan–Jun 2023</p>
+    </div>
+    <div class="bg-gradient-to-br from-white/[0.07] to-white/0 rounded-3xl border border-white/[0.08] p-4">
+      <p class="text-[10px] uppercase tracking-[0.14em] text-neutral-500 mb-1">Crescimento</p>
+      <p class="text-[22px] font-semibold tracking-tight text-emerald-300">+103,8%</p>
+      <p class="text-[11px] text-neutral-500 mt-0.5">Jan → Jun (faturamento)</p>
+    </div>
+    <div class="bg-gradient-to-br from-white/[0.07] to-white/0 rounded-3xl border border-white/[0.08] p-4">
+      <p class="text-[10px] uppercase tracking-[0.14em] text-neutral-500 mb-1">Transações</p>
+      <p class="text-[22px] font-semibold tracking-tight text-sky-300">149.116</p>
+      <p class="text-[11px] text-neutral-500 mt-0.5">Itens vendidos no período</p>
+    </div>
+    <div class="bg-gradient-to-br from-white/[0.07] to-white/0 rounded-3xl border border-white/[0.08] p-4">
+      <p class="text-[10px] uppercase tracking-[0.14em] text-neutral-500 mb-1">Ticket Médio</p>
+      <p class="text-[22px] font-semibold tracking-tight text-violet-300">R$ 4,69</p>
+      <p class="text-[11px] text-neutral-500 mt-0.5">Por item · estável no período</p>
+    </div>
+  </div>
+
+  <!-- ===== BODY ===== -->
+  <div class="flex flex-col gap-4">
+
+    <!-- Crescimento -->
+    <div class="bg-gradient-to-br from-white/[0.07] to-white/0 rounded-3xl border border-white/[0.08] p-5 relative" style="--border-gradient:linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0));--border-radius-before:24px">
+      <div class="flex items-center gap-2 mb-4">
+        <div class="h-6 w-6 rounded-xl bg-emerald-500/15 border border-emerald-500/25 flex items-center justify-center">
+          <i data-lucide="trending-up" class="w-3.5 h-3.5 text-emerald-400"></i>
+        </div>
+        <p class="text-[13px] font-semibold text-white tracking-tight">Crescimento</p>
+      </div>
+      <ul class="bullets emerald space-y-0.5">
+        <li><span class="text-[12px] text-neutral-300">O faturamento cresceu <strong class="text-emerald-300">+103,8%</strong> de janeiro (R$81.678) a junho (R$166.486) — crescimento real e sustentado ao longo de todo o período.</span></li>
+        <li><span class="text-[12px] text-neutral-300">O crescimento é <strong class="text-white">inteiramente volumétrico</strong>: o número de transações mais que dobrou (+104%), enquanto o ticket médio permaneceu flat em R$4,69 durante os 6 meses.</span></li>
+        <li><span class="text-[12px] text-neutral-300">A queda de fevereiro é <strong class="text-white">calendária</strong> (mês mais curto), não operacional — a receita por dia útil em fevereiro superou a de janeiro.</span></li>
+        <li><span class="text-[12px] text-neutral-300">A média diária de transações saltou de <strong class="text-white">2.635/dia</strong> em janeiro para <strong class="text-white">5.550/dia</strong> em junho.</span></li>
+      </ul>
+    </div>
+
+    <!-- Lojas -->
+    <div class="bg-gradient-to-br from-white/[0.07] to-white/0 rounded-3xl border border-white/[0.08] p-5 relative" style="--border-gradient:linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0));--border-radius-before:24px">
+      <div class="flex items-center gap-2 mb-4">
+        <div class="h-6 w-6 rounded-xl bg-sky-500/15 border border-sky-500/25 flex items-center justify-center">
+          <i data-lucide="map-pin" class="w-3.5 h-3.5 text-sky-400"></i>
+        </div>
+        <p class="text-[13px] font-semibold text-white tracking-tight">Lojas</p>
+      </div>
+      <ul class="bullets sky space-y-0.5">
+        <li><span class="text-[12px] text-neutral-300">As 3 lojas (Astoria, Hell's Kitchen, Lower Manhattan) cresceram de forma <strong class="text-white">homogênea</strong>: entre +101% e +105% — nenhuma loja está puxando ou atrasando a rede.</span></li>
+        <li><span class="text-[12px] text-neutral-300">O mix de categorias apresenta <strong class="text-white">pequenas variações por loja</strong>, mas sem disparidade relevante — os perfis de consumo são similares nas 3 unidades.</span></li>
+        <li><span class="text-[12px] text-neutral-300">A homogeneidade indica que <strong class="text-white">o modelo operacional atual funciona</strong> e pode ser formalizado como playbook para expansão futura.</span></li>
+      </ul>
+    </div>
+
+    <!-- Produtos -->
+    <div class="bg-gradient-to-br from-white/[0.07] to-white/0 rounded-3xl border border-white/[0.08] p-5 relative" style="--border-gradient:linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0));--border-radius-before:24px">
+      <div class="flex items-center gap-2 mb-4">
+        <div class="h-6 w-6 rounded-xl bg-amber-500/15 border border-amber-500/25 flex items-center justify-center">
+          <i data-lucide="package" class="w-3.5 h-3.5 text-amber-400"></i>
+        </div>
+        <p class="text-[13px] font-semibold text-white tracking-tight">Produtos</p>
+      </div>
+      <ul class="bullets amber space-y-0.5">
+        <li><span class="text-[12px] text-neutral-300"><strong class="text-white">Coffee representa 39,5%</strong> da receita total e é o motor do crescimento — manter qualidade e disponibilidade é prioridade operacional.</span></li>
+        <li><span class="text-[12px] text-neutral-300"><strong class="text-amber-300">Coffee Beans têm ticket 5× maior</strong> que o café de balcão (R$22,87 vs R$4,62) — uma única venda de beans equivale a 5 cafés.</span></li>
+        <li><span class="text-[12px] text-neutral-300">Branded products têm ticket médio de R$18,22 — o segundo produto de maior valor unitário, ainda subexplorado nas vendas.</span></li>
+        <li><span class="text-[12px] text-neutral-300">Syrups e flavours apresentam correlação de <strong class="text-white">r=0,74</strong> com o ticket de café por hora — horas com mais personalização têm ticket consistentemente mais alto.</span></li>
+        <li><span class="text-[12px] text-neutral-300">Bakery e Tea têm ticket abaixo de R$4,32 — produtos de volume, não de margem.</span></li>
+      </ul>
+    </div>
+
+    <!-- Operações -->
+    <div class="bg-gradient-to-br from-white/[0.07] to-white/0 rounded-3xl border border-white/[0.08] p-5 relative" style="--border-gradient:linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0));--border-radius-before:24px">
+      <div class="flex items-center gap-2 mb-4">
+        <div class="h-6 w-6 rounded-xl bg-violet-500/15 border border-violet-500/25 flex items-center justify-center">
+          <i data-lucide="clock" class="w-3.5 h-3.5 text-violet-400"></i>
+        </div>
+        <p class="text-[13px] font-semibold text-white tracking-tight">Operações</p>
+      </div>
+      <ul class="bullets violet space-y-0.5">
+        <li><span class="text-[12px] text-neutral-300"><strong class="text-violet-300">36,7% da receita diária</strong> está concentrada em apenas 3 horas — o pico de 8h às 10h é crítico; qualquer gargalo nessa janela compromete mais de 1/3 do dia.</span></li>
+        <li><span class="text-[12px] text-neutral-300">A hora de pico absoluta é às <strong class="text-white">10h</strong>, com recorrência consistente nas 3 lojas e em todos os meses analisados.</span></li>
+        <li><span class="text-[12px] text-neutral-300">O padrão de fins de semana é <strong class="text-white">idêntico ao de dias úteis</strong> — o pico das 10h é igualmente intenso no sábado e no domingo, o que exige escala uniforme 7 dias por semana.</span></li>
+        <li><span class="text-[12px] text-neutral-300">Após as 11h, o volume cai progressivamente — a tarde e noite representam oportunidade de redução de escala sem impacto na receita.</span></li>
+      </ul>
+    </div>
+
+    <!-- Oportunidades -->
+    <div class="bg-gradient-to-br from-emerald-500/[0.06] to-white/0 rounded-3xl border border-emerald-500/[0.15] p-5 relative" style="--border-gradient:linear-gradient(180deg,rgba(52,211,153,0.15),rgba(255,255,255,0));--border-radius-before:24px">
+      <div class="flex items-center gap-2 mb-4">
+        <div class="h-6 w-6 rounded-xl bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center">
+          <i data-lucide="zap" class="w-3.5 h-3.5 text-emerald-400"></i>
+        </div>
+        <p class="text-[13px] font-semibold text-white tracking-tight">Oportunidades Prioritárias para Operações</p>
+        <span class="inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-[10px] font-semibold bg-emerald-500/15 text-emerald-300 border border-emerald-500/25 ml-auto"><span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>Nível Alto</span>
+      </div>
+      <ul class="bullets emerald space-y-0.5">
+        <li><span class="text-[12px] text-neutral-300"><strong class="text-white">Implantar protocolo de upsell no balcão</strong> — o ticket nunca variou em 6 meses; cada +R$0,50 por transação equivale a +R$75k/ano na rede inteira.</span></li>
+        <li><span class="text-[12px] text-neutral-300"><strong class="text-white">Oferta ativa de syrups/flavours em todo pedido de café</strong> — uma pergunta ("Deseja adicionar um sabor?") é o mecanismo mais barato e de maior impacto imediato no ticket.</span></li>
+        <li><span class="text-[12px] text-neutral-300"><strong class="text-white">Posicionar Coffee Beans e Branded no PDV</strong> e incluí-los no script de finalização de pedido — ticket 5× maior sem necessidade de novo produto ou promoção.</span></li>
+        <li><span class="text-[12px] text-neutral-300"><strong class="text-white">Escalar máximo de equipe das 8h às 10h</strong> — qualquer gargalo operacional nessa janela compromete ~12% da receita do dia por hora perdida.</span></li>
+      </ul>
+    </div>
+
+    <!-- Secundárias -->
+    <div class="bg-gradient-to-br from-white/[0.07] to-white/0 rounded-3xl border border-white/[0.08] p-5 relative" style="--border-gradient:linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0));--border-radius-before:24px">
+      <div class="flex items-center gap-2 mb-4">
+        <div class="h-6 w-6 rounded-xl bg-sky-500/15 border border-sky-500/25 flex items-center justify-center">
+          <i data-lucide="layers" class="w-3.5 h-3.5 text-sky-400"></i>
+        </div>
+        <p class="text-[13px] font-semibold text-white tracking-tight">Ações Complementares</p>
+        <span class="inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-[10px] font-semibold bg-sky-500/15 text-sky-300 border border-sky-500/25 ml-auto"><span class="h-1.5 w-1.5 rounded-full bg-sky-400"></span>Nível Médio</span>
+      </div>
+      <ul class="bullets sky space-y-0.5">
+        <li><span class="text-[12px] text-neutral-300"><strong class="text-white">Formalizar playbook operacional</strong> com as práticas que funcionam igualmente bem nas 3 lojas — base para treinamento e expansão.</span></li>
+        <li><span class="text-[12px] text-neutral-300"><strong class="text-white">Customizar mix em destaque por loja</strong> conforme o perfil de compra local — Astoria, Hell's Kitchen e Lower Manhattan têm pequenas preferências distintas exploráveis.</span></li>
+        <li><span class="text-[12px] text-neutral-300"><strong class="text-white">Uniformizar escala de fim de semana</strong> igual à de dias úteis — o comportamento é idêntico e a operação deve refletir isso.</span></li>
+        <li><span class="text-[12px] text-neutral-300"><strong class="text-white">Avaliar variedades premium de café</strong> como alavanca de ticket — o café já domina 39,5% da receita; uma linha especial pode elevar o ticket médio sem mudar volume.</span></li>
+      </ul>
+    </div>
+
+    <!-- Contexto / Limitações -->
+    <div class="bg-gradient-to-br from-white/[0.04] to-white/0 rounded-3xl border border-white/[0.06] p-5">
+      <div class="flex items-center gap-2 mb-3">
+        <i data-lucide="info" class="w-3.5 h-3.5 text-neutral-500"></i>
+        <p class="text-[11px] font-medium uppercase tracking-[0.14em] text-neutral-600">Contexto e Limites da Análise</p>
+      </div>
+      <ul class="bullets neutral space-y-0.5">
+        <li><span class="text-[11px] text-neutral-500">Dados cobrem apenas <strong class="text-neutral-400">Jan–Jun 2023</strong> — não há comparação com ano anterior nem sazonalidade de longo prazo.</span></li>
+        <li><span class="text-[11px] text-neutral-500">Não há identificador de cliente — impossível calcular frequência de retorno, LTV ou cohort de novos vs. recorrentes.</span></li>
+        <li><span class="text-[11px] text-neutral-500">Não há custo de produto — toda análise é por receita; margem e lucratividade por categoria requerem dados adicionais.</span></li>
+        <li><span class="text-[11px] text-neutral-500">A hipótese de syrups como proxy de upsell (H7) foi testada via correlação horária, não via vínculo direto por pedido — o veredito é parcial.</span></li>
+        <li><span class="text-[11px] text-neutral-500">Base: <strong class="text-neutral-400">149.116 transações</strong> · 3 lojas · Astoria (id 3), Hell's Kitchen (id 8), Lower Manhattan (id 5).</span></li>
+      </ul>
+    </div>
+
+  </div><!-- /body -->
+
+  <!-- ===== FOOTER ===== -->
+  <div class="mt-8 pt-5 border-t border-white/[0.06] flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+    <p class="text-[10px] text-neutral-700">Coffee Shop Analytics · Etapas 1–4 concluídas · Fonte: coffee-shop-dataset.csv</p>
+    <a href="index.html" class="text-[10px] text-neutral-600 hover:text-neutral-400 transition-colors inline-flex items-center gap-1">
+      <i data-lucide="arrow-left" class="w-3 h-3"></i>
+      Dashboard completo com 10 hipóteses testadas
+    </a>
+  </div>
+
+</div>
+</main>
+</div>
+
+<script>
+window.addEventListener("DOMContentLoaded", () => { lucide.createIcons(); });
+</script>
+</body>
+</html>

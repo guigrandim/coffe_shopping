@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<title>Coffee Shop Analytics · Hipóteses</title>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="assets/resource_3fa48481346f.js"></script>
+<script src="assets/lucide_latest_2eebd0ebe8c2.js"></script>
+<script src="assets/iconify_654a1ef798a3.js"></script>
+<link href="assets/css2_86e10c4bcbd4.css" rel="stylesheet"/>
+<style>.font-geist { font-family: 'Geist', system-ui, sans-serif !important; }</style>
+<link href="assets/css2_0b2072b66163.css" rel="stylesheet"/>
+<style>.font-jakarta { font-family: 'Plus Jakarta Sans', system-ui, sans-serif !important; }</style>
+<style>
+[style*="--border-gradient"]::before {
+  content: ""; position: absolute; inset: 0; padding: 1px;
+  border-radius: var(--border-radius-before, inherit);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  background: var(--border-gradient); pointer-events: none;
+}
+svg { overflow: visible; }
+</style>
+</head>
+<body class="min-h-screen bg-neutral-950 text-white antialiased font-geist">
+
+<!-- Background -->
+<div class="fixed top-0 w-full h-screen -z-10 opacity-40" style="mask-image:linear-gradient(to bottom,transparent,black 0%,black 80%,transparent)">
+  <div class="absolute inset-0" style="background:radial-gradient(ellipse 80% 50% at 20% 20%, rgba(56,189,248,0.12) 0%, transparent 60%), radial-gradient(ellipse 60% 40% at 80% 60%, rgba(245,158,11,0.08) 0%, transparent 60%), radial-gradient(ellipse 50% 60% at 50% 90%, rgba(139,92,246,0.08) 0%, transparent 60%)"></div>
+</div>
+
+<div class="min-h-screen flex flex-col">
+<main class="flex-1">
+<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
+
+  <!-- ===== PAGE HEADER ===== -->
+  <div class="mb-10">
+    <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8">
+      <div>
+        <p class="text-[11px] font-medium uppercase tracking-[0.18em] text-neutral-500 mb-2">Análise · Jan–Jun 2023</p>
+        <h1 class="text-[28px] sm:text-[32px] font-semibold tracking-tight leading-tight">Coffee Shop Analytics</h1>
+        <p class="text-neutral-400 text-sm mt-1">Rede de 3 lojas · 149.116 transações · Gerente de Operações</p>
+      </div>
+      <div class="inline-flex items-center gap-2 rounded-2xl bg-white/5 border border-white/10 px-4 py-2 text-[12px] text-neutral-400">
+        <span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
+        Etapa 4 · Teste de Hipóteses
+      </div>
+    </div>
+
+    <!-- KPI row -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+      <div class="bg-gradient-to-br from-white/[0.07] to-white/0 rounded-3xl shadow-lg backdrop-blur-lg border border-white/[0.08] p-4">
+        <p class="text-[10px] uppercase tracking-[0.14em] text-neutral-500 mb-1">Faturamento Total</p>
+        <p class="text-[22px] font-semibold tracking-tight text-amber-300">R$ 698k</p>
+        <p class="text-[11px] text-neutral-500 mt-0.5">Jan–Jun 2023</p>
+      </div>
+      <div class="bg-gradient-to-br from-white/[0.07] to-white/0 rounded-3xl shadow-lg backdrop-blur-lg border border-white/[0.08] p-4">
+        <p class="text-[10px] uppercase tracking-[0.14em] text-neutral-500 mb-1">Crescimento</p>
+        <p class="text-[22px] font-semibold tracking-tight text-emerald-300">+103.8%</p>
+        <p class="text-[11px] text-neutral-500 mt-0.5">Jan → Jun (faturamento)</p>
+      </div>
+      <div class="bg-gradient-to-br from-white/[0.07] to-white/0 rounded-3xl shadow-lg backdrop-blur-lg border border-white/[0.08] p-4">
+        <p class="text-[10px] uppercase tracking-[0.14em] text-neutral-500 mb-1">Transações</p>
+        <p class="text-[22px] font-semibold tracking-tight text-sky-300">149.116</p>
+        <p class="text-[11px] text-neutral-500 mt-0.5">Itens vendidos</p>
+      </div>
+      <div class="bg-gradient-to-br from-white/[0.07] to-white/0 rounded-3xl shadow-lg backdrop-blur-lg border border-white/[0.08] p-4">
+        <p class="text-[10px] uppercase tracking-[0.14em] text-neutral-500 mb-1">Ticket Médio</p>
+        <p class="text-[22px] font-semibold tracking-tight text-violet-300">R$ 4,69</p>
+        <p class="text-[11px] text-neutral-500 mt-0.5">Por item · estável no período</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== HYPOTHESIS GRID ===== -->
+  <div class="mb-4 flex items-center gap-3">
+    <p class="text-[10px] font-medium uppercase tracking-[0.18em] text-neutral-600">Teste de 10 Hipóteses Analíticas</p>
+    <div class="flex-1 h-px bg-white/5"></div>
+    <div class="flex gap-2 text-[10px]">
+      <span class="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold bg-emerald-500/15 text-emerald-300 border border-emerald-500/25"><svg class="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Confirmada</span> <span class="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold bg-amber-500/15 text-amber-300 border border-amber-500/25"><svg class="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 20 20"><path d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"/></svg>Parcialmente Confirmada</span> <span class="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold bg-rose-500/15 text-rose-300 border border-rose-500/25"><svg class="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>Refutada</span>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-8 lg:grid-cols-12 gap-4">
+
+    <!-- ===== ROW 1: H1 + H2 ===== -->
+
+    <!-- H1: Crescimento Sazonal (8 cols) -->
+    <section class="md:col-span-5 lg:col-span-8 bg-gradient-to-br from-white/[0.07] to-white/0 rounded-3xl shadow-lg backdrop-blur-lg border border-white/[0.08] p-5 relative" style="--border-gradient:linear-gradient(180deg,rgba(255,255,255,0.1),rgba(255,255,255,0));--border-radius-before:24px">
+      <div class="flex items-start justify-between mb-4">
+        <div>
+          <p class="text-[10px] font-medium uppercase tracking-[0.16em] text-neutral-500 mb-1">H1</p>
+          <h3 class="text-[15px] font-semibold tracking-tight leading-snug">O crescimento é sazonal, não estrutural?</h3>
+        </div>
+        <span class="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold bg-amber-500/15 text-amber-300 border border-amber-500/25"><svg class="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 20 20"><path d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"/></svg>Parcialmente Confirmada</span>
+      </div>
+      <div class="flex flex-wrap gap-3 text-[10px] mb-3"><span class="flex items-center gap-1.5"><span class="h-2 w-2 rounded-full flex-shrink-0" style="background:#38bdf8"></span><span class="text-neutral-400">Astoria</span></span><span class="flex items-center gap-1.5"><span class="h-2 w-2 rounded-full flex-shrink-0" style="background:#fbbf24"></span><span class="text-neutral-400">Hell's Kitchen</span></span><span class="flex items-center gap-1.5"><span class="h-2 w-2 rounded-full flex-shrink-0" style="background:#34d399"></span><span class="text-neutral-400">Lower Manhattan</span></span></div>
+      <svg viewBox="0 0 380 106" xmlns="http://www.w3.org/2000/svg" class="w-full">
+<line x1="8" y1="6.0" x2="372" y2="6.0" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+<line x1="8" y1="44.0" x2="372" y2="44.0" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+<line x1="8" y1="82.0" x2="372" y2="82.0" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+<path d="M 8.0,76.7 L 80.8,82.0 L 153.6,63.6 L 226.4,47.7 L 299.2,16.8 L 372.0,10.5 L 372.0,82.0 L 8.0,82.0 Z" fill="#38bdf822"/>
+<polyline points="8.0,76.7 80.8,82.0 153.6,63.6 226.4,47.7 299.2,16.8 372.0,10.5" fill="none" stroke="#38bdf8" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="8.0" cy="76.7" r="2.5" fill="#38bdf8"/>
+<circle cx="80.8" cy="82.0" r="2.5" fill="#38bdf8"/>
+<circle cx="153.6" cy="63.6" r="2.5" fill="#38bdf8"/>
+<circle cx="226.4" cy="47.7" r="2.5" fill="#38bdf8"/>
+<circle cx="299.2" cy="16.8" r="2.5" fill="#38bdf8"/>
+<circle cx="372.0" cy="10.5" r="2.5" fill="#38bdf8"/>
+<path d="M 8.0,75.5 L 80.8,80.5 L 153.6,62.9 L 226.4,45.7 L 299.2,16.4 L 372.0,6.0 L 372.0,82.0 L 8.0,82.0 Z" fill="#fbbf2422"/>
+<polyline points="8.0,75.5 80.8,80.5 153.6,62.9 226.4,45.7 299.2,16.4 372.0,6.0" fill="none" stroke="#fbbf24" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="8.0" cy="75.5" r="2.5" fill="#fbbf24"/>
+<circle cx="80.8" cy="80.5" r="2.5" fill="#fbbf24"/>
+<circle cx="153.6" cy="62.9" r="2.5" fill="#fbbf24"/>
+<circle cx="226.4" cy="45.7" r="2.5" fill="#fbbf24"/>
+<circle cx="299.2" cy="16.4" r="2.5" fill="#fbbf24"/>
+<circle cx="372.0" cy="6.0" r="2.5" fill="#fbbf24"/>
+<path d="M 8.0,78.6 L 80.8,81.5 L 153.6,63.4 L 226.4,48.5 L 299.2,18.5 L 372.0,12.0 L 372.0,82.0 L 8.0,82.0 Z" fill="#34d39922"/>
+<polyline points="8.0,78.6 80.8,81.5 153.6,63.4 226.4,48.5 299.2,18.5 372.0,12.0" fill="none" stroke="#34d399" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="8.0" cy="78.6" r="2.5" fill="#34d399"/>
+<circle cx="80.8" cy="81.5" r="2.5" fill="#34d399"/>
+<circle cx="153.6" cy="63.4" r="2.5" fill="#34d399"/>
+<circle cx="226.4" cy="48.5" r="2.5" fill="#34d399"/>
+<circle cx="299.2" cy="18.5" r="2.5" fill="#34d399"/>
+<circle cx="372.0" cy="12.0" r="2.5" fill="#34d399"/>
+<text x="8.0" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">Jan</text>
+<text x="80.8" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">Feb</text>
+<text x="153.6" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">Mar</text>
+<text x="226.4" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">Apr</text>
+<text x="299.2" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">May</text>
+<text x="372.0" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">Jun</text>
+</svg>
+      <div class="mt-3 pt-3 border-t border-white/[0.07]">
+        <p class="text-[11px] text-neutral-400 leading-relaxed">As 3 lojas crescem em paralelo — padrão consistente com sazonalidade. Sem dados do ano anterior não é possível isolar efeito estrutural de efeito sazonal. O pico de Jun (+6,2% MoM) vs Jan sugere que há aceleração real, não apenas calendário.</p>
+      </div>
+    </section>
+
+    <!-- H2: Queda de Fev (4 cols) -->
+    <section class="md:col-span-3 lg:col-span-4 bg-emerald-600 rounded-3xl p-5 shadow-lg shadow-emerald-900/30 border border-white/10 flex flex-col">
+      <div class="flex items-start justify-between mb-4">
+        <div>
+          <p class="text-[10px] font-medium uppercase tracking-[0.16em] text-neutral-500 mb-1">H2</p>
+          <h3 class="text-[15px] font-semibold tracking-tight leading-snug">A queda de fev. é puramente calendária?</h3>
+        </div>
+        <span class="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold bg-emerald-500/15 text-emerald-300 border border-emerald-500/25"><svg class="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Confirmada</span>
+      </div>
+      <p class="text-[10px] text-emerald-100/70 -mt-2 mb-3">Receita média por dia (R$)</p>
+      <svg viewBox="0 0 380 106" xmlns="http://www.w3.org/2000/svg" class="w-full">
+<line x1="8" y1="6.0" x2="372" y2="6.0" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+<line x1="8" y1="44.0" x2="372" y2="44.0" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+<line x1="8" y1="82.0" x2="372" y2="82.0" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+<rect x="13.5" y="45.9" width="49.7" height="36.1" rx="3" fill="rgba(52,211,153,0.3)"/>
+<rect x="74.1" y="44.8" width="49.7" height="37.2" rx="3" fill="rgba(52,211,153,0.95)"/>
+<rect x="134.8" y="38.3" width="49.7" height="43.7" rx="3" fill="rgba(52,211,153,0.45)"/>
+<rect x="195.5" y="27.7" width="49.7" height="54.3" rx="3" fill="rgba(52,211,153,0.55)"/>
+<rect x="256.1" y="12.8" width="49.7" height="69.2" rx="3" fill="rgba(52,211,153,0.7)"/>
+<rect x="316.8" y="6.0" width="49.7" height="76.0" rx="3" fill="rgba(52,211,153,0.88)"/>
+<text x="38.3" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">Jan</text>
+<text x="99.0" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">Feb</text>
+<text x="159.7" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">Mar</text>
+<text x="220.3" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">Apr</text>
+<text x="281.0" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">May</text>
+<text x="341.7" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">Jun</text>
+</svg>
+      <div class="mt-3 pt-3 border-t border-white/[0.07]">
+        <p class="text-[11px] text-neutral-400 leading-relaxed"><span class="text-emerald-200">Fev/dia: R$2.719 &gt; Jan/dia: R$2.635 (+3,2%).</span> A queda no total mensal (–6,8%) ocorreu apenas porque fevereiro tem 28 dias vs 31 de janeiro. Demanda não caiu.</p>
+      </div>
+    </section>
+
+    <!-- ===== ROW 2: H3 + H4 ===== -->
+
+    <!-- H3: Crescimento Volumétrico (6 cols) -->
+    <section class="md:col-span-4 lg:col-span-6 bg-sky-600 rounded-3xl p-5 shadow-lg shadow-sky-900/30 border border-white/10 flex flex-col">
+      <div class="flex items-start justify-between mb-4">
+        <div>
+          <p class="text-[10px] font-medium uppercase tracking-[0.16em] text-neutral-500 mb-1">H3</p>
+          <h3 class="text-[15px] font-semibold tracking-tight leading-snug">O crescimento é volumétrico, não de ticket?</h3>
+        </div>
+        <span class="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold bg-emerald-500/15 text-emerald-300 border border-emerald-500/25"><svg class="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Confirmada</span>
+      </div>
+      <p class="text-[10px] text-sky-100/70 -mt-2 mb-2">Volume de transações por mês</p>
+      <svg viewBox="0 0 380 106" xmlns="http://www.w3.org/2000/svg" class="w-full">
+<line x1="8" y1="6.0" x2="372" y2="6.0" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+<line x1="8" y1="44.0" x2="372" y2="44.0" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+<line x1="8" y1="82.0" x2="372" y2="82.0" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+<rect x="13.5" y="44.8" width="49.7" height="37.2" rx="3" fill="rgba(56,189,248,0.5)"/>
+<rect x="74.1" y="46.8" width="49.7" height="35.2" rx="3" fill="rgba(56,189,248,0.5)"/>
+<rect x="134.8" y="36.4" width="49.7" height="45.6" rx="3" fill="rgba(56,189,248,0.5)"/>
+<rect x="195.5" y="27.5" width="49.7" height="54.5" rx="3" fill="rgba(56,189,248,0.5)"/>
+<rect x="256.1" y="9.9" width="49.7" height="72.1" rx="3" fill="rgba(56,189,248,0.5)"/>
+<rect x="316.8" y="6.0" width="49.7" height="76.0" rx="3" fill="rgba(56,189,248,0.5)"/>
+<text x="38.3" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">Jan</text>
+<text x="99.0" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">Feb</text>
+<text x="159.7" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">Mar</text>
+<text x="220.3" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">Apr</text>
+<text x="281.0" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">May</text>
+<text x="341.7" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">Jun</text>
+</svg>
+      <p class="text-[10px] text-sky-100/70 mt-3 mb-1">Ticket médio por item (R$) — escala: 4,60–4,75</p>
+      <svg viewBox="0 0 380 54" xmlns="http://www.w3.org/2000/svg" class="w-full">
+<line x1="8" y1="6.0" x2="372" y2="6.0" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+<line x1="8" y1="18.0" x2="372" y2="18.0" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+<line x1="8" y1="30.0" x2="372" y2="30.0" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+<path d="M 8.0,6.0 L 80.8,30.0 L 153.6,26.6 L 226.4,16.3 L 299.2,23.1 L 372.0,9.4 L 372.0,30.0 L 8.0,30.0 Z" fill="#a78bfa22"/>
+<polyline points="8.0,6.0 80.8,30.0 153.6,26.6 226.4,16.3 299.2,23.1 372.0,9.4" fill="none" stroke="#a78bfa" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="8.0" cy="6.0" r="2.5" fill="#a78bfa"/>
+<circle cx="80.8" cy="30.0" r="2.5" fill="#a78bfa"/>
+<circle cx="153.6" cy="26.6" r="2.5" fill="#a78bfa"/>
+<circle cx="226.4" cy="16.3" r="2.5" fill="#a78bfa"/>
+<circle cx="299.2" cy="23.1" r="2.5" fill="#a78bfa"/>
+<circle cx="372.0" cy="9.4" r="2.5" fill="#a78bfa"/>
+<text x="8.0" y="49" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">Jan</text>
+<text x="80.8" y="49" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">Feb</text>
+<text x="153.6" y="49" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">Mar</text>
+<text x="226.4" y="49" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">Apr</text>
+<text x="299.2" y="49" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">May</text>
+<text x="372.0" y="49" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">Jun</text>
+</svg>
+      <div class="mt-3 pt-3 border-t border-white/[0.07]">
+        <p class="text-[11px] text-neutral-400 leading-relaxed"><span class="text-sky-200">Transações: +104% (17k→35k). Ticket médio: +0,1% (R$4,72→4,71).</span> Crescimento 100% volumétrico. A rede cresce porque atende mais clientes, não porque cada visita gera mais receita.</p>
+      </div>
+    </section>
+
+    <!-- H4: Crescimento Homogêneo (6 cols) -->
+    <section class="md:col-span-4 lg:col-span-6 bg-gradient-to-br from-white/[0.07] to-white/0 rounded-3xl shadow-lg backdrop-blur-lg border border-white/[0.08] p-5 relative flex flex-col" style="--border-gradient:linear-gradient(180deg,rgba(255,255,255,0.1),rgba(255,255,255,0));--border-radius-before:24px">
+      <div class="flex items-start justify-between mb-4">
+        <div>
+          <p class="text-[10px] font-medium uppercase tracking-[0.16em] text-neutral-500 mb-1">H4</p>
+          <h3 class="text-[15px] font-semibold tracking-tight leading-snug">O crescimento é homogêneo entre as lojas?</h3>
+        </div>
+        <span class="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold bg-emerald-500/15 text-emerald-300 border border-emerald-500/25"><svg class="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Confirmada</span>
+      </div>
+      <div class="flex flex-wrap gap-3 text-[10px] mb-3"><span class="flex items-center gap-1.5"><span class="h-2 w-2 rounded-full flex-shrink-0" style="background:#38bdf8"></span><span class="text-neutral-400">Astoria +101.7%</span></span><span class="flex items-center gap-1.5"><span class="h-2 w-2 rounded-full flex-shrink-0" style="background:#fbbf24"></span><span class="text-neutral-400">Hell's Kitchen +104.7%</span></span><span class="flex items-center gap-1.5"><span class="h-2 w-2 rounded-full flex-shrink-0" style="background:#34d399"></span><span class="text-neutral-400">Lower Manhattan +105.1%</span></span></div>
+      <svg viewBox="0 0 380 106" xmlns="http://www.w3.org/2000/svg" class="w-full">
+<line x1="8" y1="6.0" x2="372" y2="6.0" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+<line x1="8" y1="44.0" x2="372" y2="44.0" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+<line x1="8" y1="82.0" x2="372" y2="82.0" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+<path d="M 8.0,76.7 L 80.8,82.0 L 153.6,63.6 L 226.4,47.7 L 299.2,16.8 L 372.0,10.5 L 372.0,82.0 L 8.0,82.0 Z" fill="#38bdf822"/>
+<polyline points="8.0,76.7 80.8,82.0 153.6,63.6 226.4,47.7 299.2,16.8 372.0,10.5" fill="none" stroke="#38bdf8" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="8.0" cy="76.7" r="2.5" fill="#38bdf8"/>
+<circle cx="80.8" cy="82.0" r="2.5" fill="#38bdf8"/>
+<circle cx="153.6" cy="63.6" r="2.5" fill="#38bdf8"/>
+<circle cx="226.4" cy="47.7" r="2.5" fill="#38bdf8"/>
+<circle cx="299.2" cy="16.8" r="2.5" fill="#38bdf8"/>
+<circle cx="372.0" cy="10.5" r="2.5" fill="#38bdf8"/>
+<path d="M 8.0,75.5 L 80.8,80.5 L 153.6,62.9 L 226.4,45.7 L 299.2,16.4 L 372.0,6.0 L 372.0,82.0 L 8.0,82.0 Z" fill="#fbbf2422"/>
+<polyline points="8.0,75.5 80.8,80.5 153.6,62.9 226.4,45.7 299.2,16.4 372.0,6.0" fill="none" stroke="#fbbf24" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="8.0" cy="75.5" r="2.5" fill="#fbbf24"/>
+<circle cx="80.8" cy="80.5" r="2.5" fill="#fbbf24"/>
+<circle cx="153.6" cy="62.9" r="2.5" fill="#fbbf24"/>
+<circle cx="226.4" cy="45.7" r="2.5" fill="#fbbf24"/>
+<circle cx="299.2" cy="16.4" r="2.5" fill="#fbbf24"/>
+<circle cx="372.0" cy="6.0" r="2.5" fill="#fbbf24"/>
+<path d="M 8.0,78.6 L 80.8,81.5 L 153.6,63.4 L 226.4,48.5 L 299.2,18.5 L 372.0,12.0 L 372.0,82.0 L 8.0,82.0 Z" fill="#34d39922"/>
+<polyline points="8.0,78.6 80.8,81.5 153.6,63.4 226.4,48.5 299.2,18.5 372.0,12.0" fill="none" stroke="#34d399" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="8.0" cy="78.6" r="2.5" fill="#34d399"/>
+<circle cx="80.8" cy="81.5" r="2.5" fill="#34d399"/>
+<circle cx="153.6" cy="63.4" r="2.5" fill="#34d399"/>
+<circle cx="226.4" cy="48.5" r="2.5" fill="#34d399"/>
+<circle cx="299.2" cy="18.5" r="2.5" fill="#34d399"/>
+<circle cx="372.0" cy="12.0" r="2.5" fill="#34d399"/>
+<text x="8.0" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">Jan</text>
+<text x="80.8" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">Feb</text>
+<text x="153.6" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">Mar</text>
+<text x="226.4" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">Apr</text>
+<text x="299.2" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">May</text>
+<text x="372.0" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">Jun</text>
+</svg>
+      <div class="mt-3 grid grid-cols-3 gap-2">
+        <div class="rounded-2xl bg-sky-500/10 border border-sky-500/20 p-2 text-center">
+          <p class="text-[18px] font-semibold text-sky-300">+101.7%</p>
+          <p class="text-[9px] text-neutral-500 mt-0.5">Astoria</p>
+        </div>
+        <div class="rounded-2xl bg-amber-500/10 border border-amber-500/20 p-2 text-center">
+          <p class="text-[18px] font-semibold text-amber-300">+104.7%</p>
+          <p class="text-[9px] text-neutral-500 mt-0.5">Hell's Kitchen</p>
+        </div>
+        <div class="rounded-2xl bg-emerald-500/10 border border-emerald-500/20 p-2 text-center">
+          <p class="text-[18px] font-semibold text-emerald-300">+105.1%</p>
+          <p class="text-[9px] text-neutral-500 mt-0.5">Lower Manhattan</p>
+        </div>
+      </div>
+      <div class="mt-3 pt-3 border-t border-white/[0.07]">
+        <p class="text-[11px] text-neutral-400 leading-relaxed">As curvas são paralelas com diferença máxima de 3,4 p.p. entre lojas. O crescimento é sistêmico — mesma força motriz atuando nas 3 unidades simultaneamente.</p>
+      </div>
+    </section>
+
+    <!-- ===== ROW 3: H5 + H6 ===== -->
+
+    <!-- H5: Perfil por Loja (7 cols) -->
+    <section class="md:col-span-5 lg:col-span-7 bg-gradient-to-br from-white/[0.07] to-white/0 rounded-3xl shadow-lg backdrop-blur-lg border border-white/[0.08] p-5 relative flex flex-col" style="--border-gradient:linear-gradient(135deg,rgba(255,255,255,0.09),rgba(255,255,255,0));--border-radius-before:24px">
+      <div class="flex items-start justify-between mb-4">
+        <div>
+          <p class="text-[10px] font-medium uppercase tracking-[0.16em] text-neutral-500 mb-1">H5</p>
+          <h3 class="text-[15px] font-semibold tracking-tight leading-snug">Cada loja tem perfil de mix diferente?</h3>
+        </div>
+        <span class="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold bg-amber-500/15 text-amber-300 border border-amber-500/25"><svg class="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 20 20"><path d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"/></svg>Parcialmente Confirmada</span>
+      </div>
+      <div class="flex flex-wrap gap-3 text-[10px] mb-3"><span class="flex items-center gap-1.5"><span class="h-2 w-2 rounded-full flex-shrink-0" style="background:#f59e0b"></span><span class="text-neutral-400">Coffee</span></span><span class="flex items-center gap-1.5"><span class="h-2 w-2 rounded-full flex-shrink-0" style="background:#2dd4bf"></span><span class="text-neutral-400">Tea</span></span><span class="flex items-center gap-1.5"><span class="h-2 w-2 rounded-full flex-shrink-0" style="background:#fb923c"></span><span class="text-neutral-400">Bakery</span></span><span class="flex items-center gap-1.5"><span class="h-2 w-2 rounded-full flex-shrink-0" style="background:#c084fc"></span><span class="text-neutral-400">Drink. Choc.</span></span><span class="flex items-center gap-1.5"><span class="h-2 w-2 rounded-full flex-shrink-0" style="background:#fde68a"></span><span class="text-neutral-400">Coffee Beans</span></span><span class="flex items-center gap-1.5"><span class="h-2 w-2 rounded-full flex-shrink-0" style="background:#f472b6"></span><span class="text-neutral-400">Flavours</span></span></div>
+      <div class="flex-1">
+        <div class="mb-3 last:mb-0">
+        <div class="flex justify-between items-center mb-1">
+          <span class="text-[11px] text-neutral-300">Astoria</span>
+          <span class="text-[10px] text-neutral-500">100%</span>
+        </div>
+        <div class="flex rounded-full overflow-hidden h-5 gap-0.5"><div style="width:38.6%;background:#f59e0b" title="Coffee: 38.6%"></div><div style="width:29.2%;background:#2dd4bf" title="Tea: 29.2%"></div><div style="width:11.5%;background:#fb923c" title="Bakery: 11.5%"></div><div style="width:11.3%;background:#c084fc" title="Drinking Chocolate: 11.3%"></div><div style="width:4.4%;background:#fde68a" title="Coffee beans: 4.4%"></div><div style="width:0.8%;background:#f472b6" title="Flavours: 0.8%"></div></div>
+      </div><div class="mb-3 last:mb-0">
+        <div class="flex justify-between items-center mb-1">
+          <span class="text-[11px] text-neutral-300">Hell's Kitchen</span>
+          <span class="text-[10px] text-neutral-500">100%</span>
+        </div>
+        <div class="flex rounded-full overflow-hidden h-5 gap-0.5"><div style="width:38.6%;background:#f59e0b" title="Coffee: 38.6%"></div><div style="width:27.4%;background:#2dd4bf" title="Tea: 27.4%"></div><div style="width:11.6%;background:#fb923c" title="Bakery: 11.6%"></div><div style="width:10.0%;background:#c084fc" title="Drinking Chocolate: 10.0%"></div><div style="width:7.9%;background:#fde68a" title="Coffee beans: 7.9%"></div><div style="width:1.2%;background:#f472b6" title="Flavours: 1.2%"></div></div>
+      </div><div class="mb-3 last:mb-0">
+        <div class="flex justify-between items-center mb-1">
+          <span class="text-[11px] text-neutral-300">Lower Manhattan</span>
+          <span class="text-[10px] text-neutral-500">100%</span>
+        </div>
+        <div class="flex rounded-full overflow-hidden h-5 gap-0.5"><div style="width:38.7%;background:#f59e0b" title="Coffee: 38.7%"></div><div style="width:27.8%;background:#2dd4bf" title="Tea: 27.8%"></div><div style="width:12.3%;background:#fb923c" title="Bakery: 12.3%"></div><div style="width:9.8%;background:#c084fc" title="Drinking Chocolate: 9.8%"></div><div style="width:4.9%;background:#fde68a" title="Coffee beans: 4.9%"></div><div style="width:1.6%;background:#f472b6" title="Flavours: 1.6%"></div></div>
+      </div>
+      </div>
+      <div class="mt-3 pt-3 border-t border-white/[0.07]">
+        <p class="text-[11px] text-neutral-400 leading-relaxed">Coffee é idêntico nas 3 lojas (38,6–38,7%) — categoria sem diferenciação. Hell's Kitchen tem 7,9% em Coffee Beans vs 4,4% em Astoria — público mais voltado a preparo em casa. Diferença relevante mas mix global é homogêneo.</p>
+      </div>
+    </section>
+
+    <!-- H6: Upsell Potential (5 cols) -->
+    <section class="md:col-span-3 lg:col-span-5 bg-amber-500 rounded-3xl p-5 shadow-lg shadow-amber-900/30 border border-white/10 flex flex-col">
+      <div class="flex items-start justify-between mb-4">
+        <div>
+          <p class="text-[10px] font-medium uppercase tracking-[0.16em] text-neutral-500 mb-1">H6</p>
+          <h3 class="text-[15px] font-semibold tracking-tight leading-snug">Há espaço para crescer via upsell de ticket alto?</h3>
+        </div>
+        <span class="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold bg-emerald-500/15 text-emerald-300 border border-emerald-500/25"><svg class="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Confirmada</span>
+      </div>
+      <p class="text-[10px] text-amber-950/70 -mt-2 mb-3">Receita por transação (R$) por categoria</p>
+      <div class="flex-1">
+        <div class="mb-1.5 last:mb-0">
+        <div class="flex justify-between text-[10px] mb-0.5">
+          <span class="text-neutral-300">Coffee Beans</span>
+          <span class="text-neutral-400">R$22.87</span>
+        </div>
+        <div class="h-2 rounded-full bg-white/5 overflow-hidden">
+          <div class="h-full rounded-full" style="width:100.0%;background:#fde68a"></div>
+        </div>
+      </div><div class="mb-1.5 last:mb-0">
+        <div class="flex justify-between text-[10px] mb-0.5">
+          <span class="text-neutral-300">Branded</span>
+          <span class="text-neutral-400">R$18.22</span>
+        </div>
+        <div class="h-2 rounded-full bg-white/5 overflow-hidden">
+          <div class="h-full rounded-full" style="width:79.7%;background:rgba(255,255,255,0.4)"></div>
+        </div>
+      </div><div class="mb-1.5 last:mb-0">
+        <div class="flex justify-between text-[10px] mb-0.5">
+          <span class="text-neutral-300">Loose Tea</span>
+          <span class="text-neutral-400">R$9.27</span>
+        </div>
+        <div class="h-2 rounded-full bg-white/5 overflow-hidden">
+          <div class="h-full rounded-full" style="width:40.5%;background:#2dd4bf"></div>
+        </div>
+      </div><div class="mb-1.5 last:mb-0">
+        <div class="flex justify-between text-[10px] mb-0.5">
+          <span class="text-neutral-300">Pack. Choc.</span>
+          <span class="text-neutral-400">R$9.05</span>
+        </div>
+        <div class="h-2 rounded-full bg-white/5 overflow-hidden">
+          <div class="h-full rounded-full" style="width:39.6%;background:#c084fc"></div>
+        </div>
+      </div><div class="mb-1.5 last:mb-0">
+        <div class="flex justify-between text-[10px] mb-0.5">
+          <span class="text-neutral-300">Drink. Choc.</span>
+          <span class="text-neutral-400">R$6.31</span>
+        </div>
+        <div class="h-2 rounded-full bg-white/5 overflow-hidden">
+          <div class="h-full rounded-full" style="width:27.6%;background:#c084fc"></div>
+        </div>
+      </div><div class="mb-1.5 last:mb-0">
+        <div class="flex justify-between text-[10px] mb-0.5">
+          <span class="text-neutral-300">Coffee</span>
+          <span class="text-neutral-400">R$4.62</span>
+        </div>
+        <div class="h-2 rounded-full bg-white/5 overflow-hidden">
+          <div class="h-full rounded-full" style="width:20.2%;background:#f59e0b"></div>
+        </div>
+      </div><div class="mb-1.5 last:mb-0">
+        <div class="flex justify-between text-[10px] mb-0.5">
+          <span class="text-neutral-300">Tea</span>
+          <span class="text-neutral-400">R$4.32</span>
+        </div>
+        <div class="h-2 rounded-full bg-white/5 overflow-hidden">
+          <div class="h-full rounded-full" style="width:18.9%;background:#2dd4bf"></div>
+        </div>
+      </div><div class="mb-1.5 last:mb-0">
+        <div class="flex justify-between text-[10px] mb-0.5">
+          <span class="text-neutral-300">Bakery</span>
+          <span class="text-neutral-400">R$3.61</span>
+        </div>
+        <div class="h-2 rounded-full bg-white/5 overflow-hidden">
+          <div class="h-full rounded-full" style="width:15.8%;background:#fb923c"></div>
+        </div>
+      </div><div class="mb-1.5 last:mb-0">
+        <div class="flex justify-between text-[10px] mb-0.5">
+          <span class="text-neutral-300">Flavours</span>
+          <span class="text-neutral-400">R$1.24</span>
+        </div>
+        <div class="h-2 rounded-full bg-white/5 overflow-hidden">
+          <div class="h-full rounded-full" style="width:5.4%;background:#f472b6"></div>
+        </div>
+      </div>
+      </div>
+      <div class="mt-3 pt-3 border-t border-white/[0.07]">
+        <p class="text-[11px] text-neutral-400 leading-relaxed"><span class="text-amber-900 font-medium">Coffee Beans: R$22,87/txn vs Coffee: R$4,62/txn (5x).</span> Com apenas 1.753 transações, a categoria tem vasta capacidade de absorver demanda. Upsell para produtos de alto ticket é a principal alavanca inexplorada.</p>
+      </div>
+    </section>
+
+    <!-- ===== ROW 4: H7 + H8 ===== -->
+
+    <!-- H7: Syrups proxy (6 cols) -->
+    <section class="md:col-span-4 lg:col-span-6 bg-gradient-to-br from-white/[0.07] to-white/0 rounded-3xl shadow-lg backdrop-blur-lg border border-white/[0.08] p-5 relative flex flex-col" style="--border-gradient:linear-gradient(135deg,rgba(255,255,255,0.09),rgba(255,255,255,0));--border-radius-before:24px">
+      <div class="flex items-start justify-between mb-4">
+        <div>
+          <p class="text-[10px] font-medium uppercase tracking-[0.16em] text-neutral-500 mb-1">H7</p>
+          <h3 class="text-[15px] font-semibold tracking-tight leading-snug">Mais vendas de syrup indicam ticket de café maior?</h3>
+        </div>
+        <span class="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold bg-amber-500/15 text-amber-300 border border-amber-500/25"><svg class="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 20 20"><path d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"/></svg>Parcialmente Confirmada</span>
+      </div>
+      <div class="flex flex-wrap gap-3 text-[10px] mb-3"><span class="flex items-center gap-1.5"><span class="h-2 w-2 rounded-full flex-shrink-0" style="background:#f472b6"></span><span class="text-neutral-400">% transações Flavours/hora</span></span><span class="flex items-center gap-1.5"><span class="h-2 w-2 rounded-full flex-shrink-0" style="background:#fbbf24"></span><span class="text-neutral-400">Ticket médio café (R$)/hora</span></span></div>
+      <svg viewBox="0 0 380 106" xmlns="http://www.w3.org/2000/svg" class="w-full">
+<line x1="8" y1="6.0" x2="372" y2="6.0" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+<line x1="8" y1="44.0" x2="372" y2="44.0" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+<line x1="8" y1="82.0" x2="372" y2="82.0" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+<path d="M 8.0,8.6 L 34.0,28.3 L 60.0,30.9 L 86.0,34.8 L 112.0,17.8 L 138.0,67.6 L 164.0,76.9 L 190.0,73.5 L 216.0,73.0 L 242.0,76.4 L 268.0,69.2 L 294.0,73.5 L 320.0,81.2 L 346.0,82.0 L 372.0,6.0 L 372.0,82.0 L 8.0,82.0 Z" fill="#f472b61a"/>
+<polyline points="8.0,8.6 34.0,28.3 60.0,30.9 86.0,34.8 112.0,17.8 138.0,67.6 164.0,76.9 190.0,73.5 216.0,73.0 242.0,76.4 268.0,69.2 294.0,73.5 320.0,81.2 346.0,82.0 372.0,6.0" fill="none" stroke="#f472b6" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="8.0" cy="8.6" r="2.5" fill="#f472b6"/>
+<circle cx="34.0" cy="28.3" r="2.5" fill="#f472b6"/>
+<circle cx="60.0" cy="30.9" r="2.5" fill="#f472b6"/>
+<circle cx="86.0" cy="34.8" r="2.5" fill="#f472b6"/>
+<circle cx="112.0" cy="17.8" r="2.5" fill="#f472b6"/>
+<circle cx="138.0" cy="67.6" r="2.5" fill="#f472b6"/>
+<circle cx="164.0" cy="76.9" r="2.5" fill="#f472b6"/>
+<circle cx="190.0" cy="73.5" r="2.5" fill="#f472b6"/>
+<circle cx="216.0" cy="73.0" r="2.5" fill="#f472b6"/>
+<circle cx="242.0" cy="76.4" r="2.5" fill="#f472b6"/>
+<circle cx="268.0" cy="69.2" r="2.5" fill="#f472b6"/>
+<circle cx="294.0" cy="73.5" r="2.5" fill="#f472b6"/>
+<circle cx="320.0" cy="81.2" r="2.5" fill="#f472b6"/>
+<circle cx="346.0" cy="82.0" r="2.5" fill="#f472b6"/>
+<circle cx="372.0" cy="6.0" r="2.5" fill="#f472b6"/>
+<path d="M 8.0,6.0 L 34.0,23.9 L 60.0,57.4 L 86.0,37.3 L 112.0,17.2 L 138.0,55.2 L 164.0,61.9 L 190.0,50.7 L 216.0,37.3 L 242.0,50.7 L 268.0,73.1 L 294.0,46.2 L 320.0,73.1 L 346.0,82.0 L 372.0,41.8 L 372.0,82.0 L 8.0,82.0 Z" fill="#fbbf241a"/>
+<polyline points="8.0,6.0 34.0,23.9 60.0,57.4 86.0,37.3 112.0,17.2 138.0,55.2 164.0,61.9 190.0,50.7 216.0,37.3 242.0,50.7 268.0,73.1 294.0,46.2 320.0,73.1 346.0,82.0 372.0,41.8" fill="none" stroke="#fbbf24" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="8.0" cy="6.0" r="2.5" fill="#fbbf24"/>
+<circle cx="34.0" cy="23.9" r="2.5" fill="#fbbf24"/>
+<circle cx="60.0" cy="57.4" r="2.5" fill="#fbbf24"/>
+<circle cx="86.0" cy="37.3" r="2.5" fill="#fbbf24"/>
+<circle cx="112.0" cy="17.2" r="2.5" fill="#fbbf24"/>
+<circle cx="138.0" cy="55.2" r="2.5" fill="#fbbf24"/>
+<circle cx="164.0" cy="61.9" r="2.5" fill="#fbbf24"/>
+<circle cx="190.0" cy="50.7" r="2.5" fill="#fbbf24"/>
+<circle cx="216.0" cy="37.3" r="2.5" fill="#fbbf24"/>
+<circle cx="242.0" cy="50.7" r="2.5" fill="#fbbf24"/>
+<circle cx="268.0" cy="73.1" r="2.5" fill="#fbbf24"/>
+<circle cx="294.0" cy="46.2" r="2.5" fill="#fbbf24"/>
+<circle cx="320.0" cy="73.1" r="2.5" fill="#fbbf24"/>
+<circle cx="346.0" cy="82.0" r="2.5" fill="#fbbf24"/>
+<circle cx="372.0" cy="41.8" r="2.5" fill="#fbbf24"/>
+<text x="8.0" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">6</text>
+<text x="34.0" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">7</text>
+<text x="60.0" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">8</text>
+<text x="86.0" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">9</text>
+<text x="112.0" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">10</text>
+<text x="138.0" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">11</text>
+<text x="164.0" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">12</text>
+<text x="190.0" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">13</text>
+<text x="216.0" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">14</text>
+<text x="242.0" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">15</text>
+<text x="268.0" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">16</text>
+<text x="294.0" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">17</text>
+<text x="320.0" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">18</text>
+<text x="346.0" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">19</text>
+<text x="372.0" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">20</text>
+</svg>
+      <div class="mt-3 pt-3 border-t border-white/[0.07]">
+        <p class="text-[11px] text-neutral-400 leading-relaxed">Correlação de Pearson r=0,74. O padrão existe: horários de abertura (6h) e fechamento (20h) concentram mais customizações e ticket ligeiramente maior. Contudo, o efeito é puxado pelos extremos do dia — a relação não é uniforme ao longo do expediente.</p>
+      </div>
+    </section>
+
+    <!-- H8: Coffee Motor (6 cols) -->
+    <section class="md:col-span-4 lg:col-span-6 bg-gradient-to-br from-white/[0.07] to-white/0 rounded-3xl shadow-lg backdrop-blur-lg border border-white/[0.08] p-5 relative flex flex-col" style="--border-gradient:linear-gradient(135deg,rgba(255,255,255,0.09),rgba(255,255,255,0));--border-radius-before:24px">
+      <div class="flex items-start justify-between mb-4">
+        <div>
+          <p class="text-[10px] font-medium uppercase tracking-[0.16em] text-neutral-500 mb-1">H8</p>
+          <h3 class="text-[15px] font-semibold tracking-tight leading-snug">Coffee é o principal motor do crescimento?</h3>
+        </div>
+        <span class="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold bg-emerald-500/15 text-emerald-300 border border-emerald-500/25"><svg class="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Confirmada</span>
+      </div>
+      <div class="flex flex-wrap gap-3 text-[10px] mb-3"><span class="flex items-center gap-1.5"><span class="h-2 w-2 rounded-full flex-shrink-0" style="background:#f59e0b"></span><span class="text-neutral-400">Coffee</span></span><span class="flex items-center gap-1.5"><span class="h-2 w-2 rounded-full flex-shrink-0" style="background:#2dd4bf"></span><span class="text-neutral-400">Tea</span></span><span class="flex items-center gap-1.5"><span class="h-2 w-2 rounded-full flex-shrink-0" style="background:#fb923c"></span><span class="text-neutral-400">Bakery</span></span><span class="flex items-center gap-1.5"><span class="h-2 w-2 rounded-full flex-shrink-0" style="background:#c084fc"></span><span class="text-neutral-400">Drink. Choc.</span></span><span class="flex items-center gap-1.5"><span class="h-2 w-2 rounded-full flex-shrink-0" style="background:#fde68a"></span><span class="text-neutral-400">Coffee Beans</span></span><span class="flex items-center gap-1.5"><span class="h-2 w-2 rounded-full flex-shrink-0" style="background:rgba(255,255,255,0.3)"></span><span class="text-neutral-400">Outros</span></span></div>
+      <svg viewBox="0 0 380 106" xmlns="http://www.w3.org/2000/svg" class="w-full">
+<line x1="8" y1="6.0" x2="372" y2="6.0" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+<line x1="8" y1="44.0" x2="372" y2="44.0" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+<line x1="8" y1="82.0" x2="372" y2="82.0" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+<rect x="13.5" y="67.7" width="49.7" height="14.3" rx="2" fill="#f59e0b"/>
+<rect x="13.5" y="57.4" width="49.7" height="10.3" rx="2" fill="#2dd4bf"/>
+<rect x="13.5" y="53.1" width="49.7" height="4.4" rx="2" fill="#fb923c"/>
+<rect x="13.5" y="49.2" width="49.7" height="3.8" rx="2" fill="#c084fc"/>
+<rect x="13.5" y="46.9" width="49.7" height="2.4" rx="2" fill="#fde68a"/>
+<rect x="13.5" y="44.7" width="49.7" height="2.1" rx="2" fill="rgba(255,255,255,0.18)"/>
+<rect x="74.1" y="68.6" width="49.7" height="13.4" rx="2" fill="#f59e0b"/>
+<rect x="74.1" y="58.7" width="49.7" height="9.9" rx="2" fill="#2dd4bf"/>
+<rect x="74.1" y="54.6" width="49.7" height="4.1" rx="2" fill="#fb923c"/>
+<rect x="74.1" y="50.9" width="49.7" height="3.7" rx="2" fill="#c084fc"/>
+<rect x="74.1" y="49.0" width="49.7" height="1.9" rx="2" fill="#fde68a"/>
+<rect x="74.1" y="47.2" width="49.7" height="1.8" rx="2" fill="rgba(255,255,255,0.18)"/>
+<rect x="134.8" y="64.5" width="49.7" height="17.5" rx="2" fill="#f59e0b"/>
+<rect x="134.8" y="51.8" width="49.7" height="12.7" rx="2" fill="#2dd4bf"/>
+<rect x="134.8" y="46.3" width="49.7" height="5.4" rx="2" fill="#fb923c"/>
+<rect x="134.8" y="41.7" width="49.7" height="4.7" rx="2" fill="#c084fc"/>
+<rect x="134.8" y="39.3" width="49.7" height="2.4" rx="2" fill="#fde68a"/>
+<rect x="134.8" y="36.9" width="49.7" height="2.4" rx="2" fill="rgba(255,255,255,0.18)"/>
+<rect x="195.5" y="61.0" width="49.7" height="21.0" rx="2" fill="#f59e0b"/>
+<rect x="195.5" y="45.8" width="49.7" height="15.2" rx="2" fill="#2dd4bf"/>
+<rect x="195.5" y="39.4" width="49.7" height="6.4" rx="2" fill="#fb923c"/>
+<rect x="195.5" y="33.8" width="49.7" height="5.6" rx="2" fill="#c084fc"/>
+<rect x="195.5" y="30.7" width="49.7" height="3.1" rx="2" fill="#fde68a"/>
+<rect x="195.5" y="27.7" width="49.7" height="3.0" rx="2" fill="rgba(255,255,255,0.18)"/>
+<rect x="256.1" y="54.4" width="49.7" height="27.6" rx="2" fill="#f59e0b"/>
+<rect x="256.1" y="34.1" width="49.7" height="20.3" rx="2" fill="#2dd4bf"/>
+<rect x="256.1" y="25.6" width="49.7" height="8.5" rx="2" fill="#fb923c"/>
+<rect x="256.1" y="18.2" width="49.7" height="7.4" rx="2" fill="#c084fc"/>
+<rect x="256.1" y="14.2" width="49.7" height="4.0" rx="2" fill="#fde68a"/>
+<rect x="256.1" y="10.5" width="49.7" height="3.7" rx="2" fill="rgba(255,255,255,0.18)"/>
+<rect x="316.8" y="52.4" width="49.7" height="29.6" rx="2" fill="#f59e0b"/>
+<rect x="316.8" y="31.3" width="49.7" height="21.1" rx="2" fill="#2dd4bf"/>
+<rect x="316.8" y="22.5" width="49.7" height="8.8" rx="2" fill="#fb923c"/>
+<rect x="316.8" y="14.7" width="49.7" height="7.8" rx="2" fill="#c084fc"/>
+<rect x="316.8" y="10.2" width="49.7" height="4.5" rx="2" fill="#fde68a"/>
+<rect x="316.8" y="6.0" width="49.7" height="4.2" rx="2" fill="rgba(255,255,255,0.18)"/>
+<text x="38.3" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">Jan</text>
+<text x="99.0" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">Feb</text>
+<text x="159.7" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">Mar</text>
+<text x="220.3" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">Apr</text>
+<text x="281.0" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">May</text>
+<text x="341.7" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">Jun</text>
+</svg>
+      <div class="mt-3 grid grid-cols-2 gap-2">
+        <div class="rounded-xl bg-amber-500/10 border border-amber-500/20 px-3 py-2">
+          <p class="text-[18px] font-semibold text-amber-300">39,5%</p>
+          <p class="text-[9px] text-neutral-500">do crescimento vem de Coffee</p>
+        </div>
+        <div class="rounded-xl bg-teal-500/10 border border-teal-500/20 px-3 py-2">
+          <p class="text-[18px] font-semibold text-teal-300">27,9%</p>
+          <p class="text-[9px] text-neutral-500">do crescimento vem de Tea</p>
+        </div>
+      </div>
+      <div class="mt-3 pt-3 border-t border-white/[0.07]">
+        <p class="text-[11px] text-neutral-400 leading-relaxed">Coffee respondeu por 39,5% do crescimento incremental (Jan→Jun). Junto com Tea (27,9%), as duas categorias explicam 67,4% de todo o crescimento da rede. Alta dependência de 2 categorias.</p>
+      </div>
+    </section>
+
+    <!-- ===== ROW 5: H9 + H10 ===== -->
+
+    <!-- H9: Concentração Horária (8 cols) -->
+    <section class="md:col-span-5 lg:col-span-8 bg-gradient-to-br from-white/[0.07] to-white/0 rounded-3xl shadow-lg backdrop-blur-lg border border-white/[0.08] p-5 relative flex flex-col" style="--border-gradient:linear-gradient(135deg,rgba(255,255,255,0.09),rgba(255,255,255,0));--border-radius-before:24px">
+      <div class="flex items-start justify-between mb-4">
+        <div>
+          <p class="text-[10px] font-medium uppercase tracking-[0.16em] text-neutral-500 mb-1">H9</p>
+          <h3 class="text-[15px] font-semibold tracking-tight leading-snug">A receita está concentrada em poucos horários?</h3>
+        </div>
+        <span class="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold bg-emerald-500/15 text-emerald-300 border border-emerald-500/25"><svg class="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Confirmada</span>
+      </div>
+      <div class="flex items-center gap-4 -mt-2 mb-3 text-[10px]">
+        <span class="flex items-center gap-1.5"><span class="h-2.5 w-2.5 rounded-sm" style="background:#8b5cf6"></span><span class="text-neutral-400">Pico (8h–10h): <span class="text-violet-300 font-semibold">36,7%</span></span></span>
+        <span class="flex items-center gap-1.5"><span class="h-2.5 w-2.5 rounded-sm" style="background:rgba(139,92,246,0.55)"></span><span class="text-neutral-400">Ombros (7h, 11h)</span></span>
+        <span class="flex items-center gap-1.5"><span class="h-2.5 w-2.5 rounded-sm" style="background:rgba(139,92,246,0.28)"></span><span class="text-neutral-400">Fora do pico</span></span>
+      </div>
+      <svg viewBox="0 0 440 106" xmlns="http://www.w3.org/2000/svg" class="w-full">
+<line x1="8" y1="6.0" x2="432" y2="6.0" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+<line x1="8" y1="44.0" x2="432" y2="44.0" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+<line x1="8" y1="82.0" x2="432" y2="82.0" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+<rect x="10.5" y="63.3" width="23.2" height="18.7" rx="3" fill="rgba(139,92,246,0.28)"/>
+<rect x="38.8" y="27.6" width="23.2" height="54.4" rx="3" fill="rgba(139,92,246,0.55)"/>
+<rect x="67.1" y="11.2" width="23.2" height="70.8" rx="3" fill="#8b5cf6"/>
+<rect x="95.3" y="9.0" width="23.2" height="73.0" rx="3" fill="#8b5cf6"/>
+<rect x="123.6" y="6.0" width="23.2" height="76.0" rx="3" fill="#8b5cf6"/>
+<rect x="151.9" y="42.3" width="23.2" height="39.7" rx="3" fill="rgba(139,92,246,0.55)"/>
+<rect x="180.1" y="47.6" width="23.2" height="34.4" rx="3" fill="rgba(139,92,246,0.28)"/>
+<rect x="208.4" y="47.4" width="23.2" height="34.6" rx="3" fill="rgba(139,92,246,0.28)"/>
+<rect x="236.7" y="46.6" width="23.2" height="35.4" rx="3" fill="rgba(139,92,246,0.28)"/>
+<rect x="264.9" y="46.2" width="23.2" height="35.8" rx="3" fill="rgba(139,92,246,0.28)"/>
+<rect x="293.2" y="46.8" width="23.2" height="35.2" rx="3" fill="rgba(139,92,246,0.28)"/>
+<rect x="321.5" y="47.6" width="23.2" height="34.4" rx="3" fill="rgba(139,92,246,0.28)"/>
+<rect x="349.7" y="52.6" width="23.2" height="29.4" rx="3" fill="rgba(139,92,246,0.28)"/>
+<rect x="378.0" y="57.6" width="23.2" height="24.4" rx="3" fill="rgba(139,92,246,0.28)"/>
+<rect x="406.3" y="79.5" width="23.2" height="2.5" rx="3" fill="rgba(139,92,246,0.28)"/>
+<text x="22.1" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">6</text>
+<text x="50.4" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">7</text>
+<text x="78.7" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">8</text>
+<text x="106.9" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">9</text>
+<text x="135.2" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">10</text>
+<text x="163.5" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">11</text>
+<text x="191.7" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">12</text>
+<text x="220.0" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">13</text>
+<text x="248.3" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">14</text>
+<text x="276.5" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">15</text>
+<text x="304.8" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">16</text>
+<text x="333.1" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">17</text>
+<text x="361.3" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">18</text>
+<text x="389.6" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">19</text>
+<text x="417.9" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">20</text>
+</svg>
+      <div class="mt-3 pt-3 border-t border-white/[0.07]">
+        <p class="text-[11px] text-neutral-400 leading-relaxed">Os horários 8h, 9h e 10h concentram 36,7% de toda a receita diária em apenas 3 horas de um expediente de 15h. O horário 20h representa <0,5% — operação residual. Dimensionamento de equipe deve priorizar fortemente o bloco 7h–11h.</p>
+      </div>
+    </section>
+
+    <!-- H10: Semana vs FdS (4 cols) -->
+    <section class="md:col-span-3 lg:col-span-4 bg-gradient-to-br from-white/[0.07] to-white/0 rounded-3xl shadow-lg backdrop-blur-lg border border-white/[0.08] p-5 relative flex flex-col" style="--border-gradient:linear-gradient(135deg,rgba(255,255,255,0.09),rgba(255,255,255,0));--border-radius-before:24px">
+      <div class="flex items-start justify-between mb-4">
+        <div>
+          <p class="text-[10px] font-medium uppercase tracking-[0.16em] text-neutral-500 mb-1">H10</p>
+          <h3 class="text-[15px] font-semibold tracking-tight leading-snug">O padrão intradiário muda no fim de semana?</h3>
+        </div>
+        <span class="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold bg-rose-500/15 text-rose-300 border border-rose-500/25"><svg class="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>Refutada</span>
+      </div>
+      <div class="flex flex-wrap gap-3 text-[10px] mb-3"><span class="flex items-center gap-1.5"><span class="h-2 w-2 rounded-full flex-shrink-0" style="background:#38bdf8"></span><span class="text-neutral-400">Dias úteis</span></span><span class="flex items-center gap-1.5"><span class="h-2 w-2 rounded-full flex-shrink-0" style="background:#f472b6"></span><span class="text-neutral-400">Fim de semana</span></span></div>
+      <svg viewBox="0 0 380 106" xmlns="http://www.w3.org/2000/svg" class="w-full">
+<line x1="8" y1="6.0" x2="372" y2="6.0" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+<line x1="8" y1="44.0" x2="372" y2="44.0" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+<line x1="8" y1="82.0" x2="372" y2="82.0" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+<path d="M 8.0,65.3 L 34.0,27.9 L 60.0,9.8 L 86.0,9.1 L 112.0,6.0 L 138.0,42.8 L 164.0,48.2 L 190.0,48.0 L 216.0,46.7 L 242.0,46.7 L 268.0,46.4 L 294.0,47.6 L 320.0,52.8 L 346.0,58.7 L 372.0,82.0 L 372.0,82.0 L 8.0,82.0 Z" fill="#38bdf81a"/>
+<polyline points="8.0,65.3 34.0,27.9 60.0,9.8 86.0,9.1 112.0,6.0 138.0,42.8 164.0,48.2 190.0,48.0 216.0,46.7 242.0,46.7 268.0,46.4 294.0,47.6 320.0,52.8 346.0,58.7 372.0,82.0" fill="none" stroke="#38bdf8" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="8.0" cy="65.3" r="2.5" fill="#38bdf8"/>
+<circle cx="34.0" cy="27.9" r="2.5" fill="#38bdf8"/>
+<circle cx="60.0" cy="9.8" r="2.5" fill="#38bdf8"/>
+<circle cx="86.0" cy="9.1" r="2.5" fill="#38bdf8"/>
+<circle cx="112.0" cy="6.0" r="2.5" fill="#38bdf8"/>
+<circle cx="138.0" cy="42.8" r="2.5" fill="#38bdf8"/>
+<circle cx="164.0" cy="48.2" r="2.5" fill="#38bdf8"/>
+<circle cx="190.0" cy="48.0" r="2.5" fill="#38bdf8"/>
+<circle cx="216.0" cy="46.7" r="2.5" fill="#38bdf8"/>
+<circle cx="242.0" cy="46.7" r="2.5" fill="#38bdf8"/>
+<circle cx="268.0" cy="46.4" r="2.5" fill="#38bdf8"/>
+<circle cx="294.0" cy="47.6" r="2.5" fill="#38bdf8"/>
+<circle cx="320.0" cy="52.8" r="2.5" fill="#38bdf8"/>
+<circle cx="346.0" cy="58.7" r="2.5" fill="#38bdf8"/>
+<circle cx="372.0" cy="82.0" r="2.5" fill="#38bdf8"/>
+<path d="M 8.0,64.7 L 34.0,27.2 L 60.0,9.7 L 86.0,9.9 L 112.0,6.0 L 138.0,44.3 L 164.0,46.4 L 190.0,47.0 L 216.0,47.0 L 242.0,46.2 L 268.0,45.4 L 294.0,47.5 L 320.0,53.0 L 346.0,58.9 L 372.0,82.0 L 372.0,82.0 L 8.0,82.0 Z" fill="#f472b61a"/>
+<polyline points="8.0,64.7 34.0,27.2 60.0,9.7 86.0,9.9 112.0,6.0 138.0,44.3 164.0,46.4 190.0,47.0 216.0,47.0 242.0,46.2 268.0,45.4 294.0,47.5 320.0,53.0 346.0,58.9 372.0,82.0" fill="none" stroke="#f472b6" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="8.0" cy="64.7" r="2.5" fill="#f472b6"/>
+<circle cx="34.0" cy="27.2" r="2.5" fill="#f472b6"/>
+<circle cx="60.0" cy="9.7" r="2.5" fill="#f472b6"/>
+<circle cx="86.0" cy="9.9" r="2.5" fill="#f472b6"/>
+<circle cx="112.0" cy="6.0" r="2.5" fill="#f472b6"/>
+<circle cx="138.0" cy="44.3" r="2.5" fill="#f472b6"/>
+<circle cx="164.0" cy="46.4" r="2.5" fill="#f472b6"/>
+<circle cx="190.0" cy="47.0" r="2.5" fill="#f472b6"/>
+<circle cx="216.0" cy="47.0" r="2.5" fill="#f472b6"/>
+<circle cx="242.0" cy="46.2" r="2.5" fill="#f472b6"/>
+<circle cx="268.0" cy="45.4" r="2.5" fill="#f472b6"/>
+<circle cx="294.0" cy="47.5" r="2.5" fill="#f472b6"/>
+<circle cx="320.0" cy="53.0" r="2.5" fill="#f472b6"/>
+<circle cx="346.0" cy="58.9" r="2.5" fill="#f472b6"/>
+<circle cx="372.0" cy="82.0" r="2.5" fill="#f472b6"/>
+<text x="8.0" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">6</text>
+<text x="34.0" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">7</text>
+<text x="60.0" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">8</text>
+<text x="86.0" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">9</text>
+<text x="112.0" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">10</text>
+<text x="138.0" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">11</text>
+<text x="164.0" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">12</text>
+<text x="190.0" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">13</text>
+<text x="216.0" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">14</text>
+<text x="242.0" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">15</text>
+<text x="268.0" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">16</text>
+<text x="294.0" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">17</text>
+<text x="320.0" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">18</text>
+<text x="346.0" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">19</text>
+<text x="372.0" y="101" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-size="9" font-family="system-ui">20</text>
+</svg>
+      <div class="mt-3 pt-3 border-t border-white/[0.07]">
+        <p class="text-[11px] text-neutral-400 leading-relaxed">Pico em ambos os grupos: hora 10 (103 txn/dia útil vs 101 txn/fds). Diferença máxima em qualquer hora: apenas 3 transações (~3%). O comportamento intradiário é praticamente idêntico — não há evidência para escalas diferenciadas por dia da semana.</p>
+      </div>
+    </section>
+
+  </div><!-- /grid -->
+
+  <!-- ===== SUMÁRIO ===== -->
+  <div class="mt-6 bg-gradient-to-br from-white/[0.07] to-white/0 rounded-3xl shadow-lg backdrop-blur-lg border border-white/[0.08] p-5 relative" style="--border-gradient:linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0));--border-radius-before:24px">
+    <p class="text-[10px] font-medium uppercase tracking-[0.16em] text-neutral-500 mb-4">Sumário dos Vereditos</p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+      <div class="rounded-2xl bg-emerald-500/8 border border-emerald-500/20 p-3 text-center">
+        <p class="text-[32px] font-semibold text-emerald-300">6</p>
+        <p class="text-[10px] text-neutral-500 mt-0.5">Confirmadas</p>
+        <p class="text-[9px] text-neutral-600 mt-1">H2 H3 H4 H6 H8 H9</p>
+      </div>
+      <div class="rounded-2xl bg-amber-500/8 border border-amber-500/20 p-3 text-center">
+        <p class="text-[32px] font-semibold text-amber-300">3</p>
+        <p class="text-[10px] text-neutral-500 mt-0.5">Parc. Confirmadas</p>
+        <p class="text-[9px] text-neutral-600 mt-1">H1 H5 H7</p>
+      </div>
+      <div class="rounded-2xl bg-rose-500/8 border border-rose-500/20 p-3 text-center">
+        <p class="text-[32px] font-semibold text-rose-300">1</p>
+        <p class="text-[10px] text-neutral-500 mt-0.5">Refutada</p>
+        <p class="text-[9px] text-neutral-600 mt-1">H10</p>
+      </div>
+      <div class="rounded-2xl bg-white/4 border border-white/8 p-3 text-center lg:col-span-2">
+        <p class="text-[11px] font-medium text-neutral-300 mb-1">Principal achado</p>
+        <p class="text-[11px] text-neutral-400 leading-relaxed">Crescimento real, volumétrico e homogêneo entre lojas. A alavanca inexplorada é upsell via Coffee Beans (5x mais receita por transação). Pico operacional fortemente concentrado nas 3h matinais (8–10h).</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== ACIONABILIDADE ===== -->
+  <div class="mt-6 bg-gradient-to-br from-white/[0.07] to-white/0 rounded-3xl shadow-lg backdrop-blur-lg border border-white/[0.08] p-5 relative" style="--border-gradient:linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0));--border-radius-before:24px">
+    <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-5">
+      <div>
+        <p class="text-[10px] font-medium uppercase tracking-[0.16em] text-neutral-500 mb-1">Priorização · Time de Operações</p>
+        <p class="text-[15px] font-semibold text-white tracking-tight">Matriz de Acionabilidade</p>
+        <p class="text-[11px] text-neutral-400 mt-0.5">Hipóteses ranqueadas do mais para o menos acionável pelo time de Operações</p>
+      </div>
+      <div class="flex gap-2 flex-shrink-0 items-center pt-1">
+        <span class="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px] font-semibold bg-emerald-500/15 text-emerald-300 border border-emerald-500/25"><span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>Alto</span>
+        <span class="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px] font-semibold bg-sky-500/15 text-sky-300 border border-sky-500/25"><span class="h-1.5 w-1.5 rounded-full bg-sky-400"></span>Médio</span>
+        <span class="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px] font-semibold bg-neutral-600/30 text-neutral-400 border border-neutral-500/30"><span class="h-1.5 w-1.5 rounded-full bg-neutral-500"></span>Baixo</span>
+      </div>
+    </div>
+    <div class="overflow-x-auto">
+      <table class="w-full text-left border-collapse" style="min-width:620px">
+        <thead>
+          <tr class="border-b border-white/[0.07]">
+            <th class="text-[10px] font-medium uppercase tracking-[0.12em] text-neutral-600 pb-2.5 pr-3 w-8">H</th>
+            <th class="text-[10px] font-medium uppercase tracking-[0.12em] text-neutral-600 pb-2.5 pr-3">Hipótese</th>
+            <th class="text-[10px] font-medium uppercase tracking-[0.12em] text-neutral-600 pb-2.5 pr-3 text-center w-36">Veredito</th>
+            <th class="text-[10px] font-medium uppercase tracking-[0.12em] text-neutral-600 pb-2.5 pr-3 text-center w-28">Nível Acionável</th>
+            <th class="text-[10px] font-medium uppercase tracking-[0.12em] text-neutral-600 pb-2.5">Alavanca Operacional</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-b border-white/[0.04]">
+            <td class="py-2.5 pr-3 text-[12px] font-semibold text-neutral-300">H3</td>
+            <td class="py-2.5 pr-3 text-[12px] text-neutral-300">Crescimento volumétrico — ticket médio estagnado</td>
+            <td class="py-2.5 pr-3 text-center"><span class="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold bg-emerald-500/15 text-emerald-300 border border-emerald-500/25"><svg class="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Confirmada</span></td>
+            <td class="py-2.5 pr-3 text-center"><span class="inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-[10px] font-bold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30"><span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>Alto</span></td>
+            <td class="py-2.5 text-[11px] text-neutral-400 leading-snug">Implantar upsell estruturado — o ticket R$4,69 nunca variou; cada +R$0,50/txn equivale a +R$75k/ano na rede</td>
+          </tr>
+          <tr class="border-b border-white/[0.04]">
+            <td class="py-2.5 pr-3 text-[12px] font-semibold text-neutral-300">H6</td>
+            <td class="py-2.5 pr-3 text-[12px] text-neutral-300">Coffee Beans e Branded com ticket 5× maior que café</td>
+            <td class="py-2.5 pr-3 text-center"><span class="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold bg-emerald-500/15 text-emerald-300 border border-emerald-500/25"><svg class="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Confirmada</span></td>
+            <td class="py-2.5 pr-3 text-center"><span class="inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-[10px] font-bold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30"><span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>Alto</span></td>
+            <td class="py-2.5 text-[11px] text-neutral-400 leading-snug">Posicionar Coffee Beans e Branded no PDV; incluir oferta desses produtos ao finalizar o pedido no balcão</td>
+          </tr>
+          <tr class="border-b border-white/[0.04]">
+            <td class="py-2.5 pr-3 text-[12px] font-semibold text-neutral-300">H7</td>
+            <td class="py-2.5 pr-3 text-[12px] text-neutral-300">Syrups/flavours correlacionados com ticket de café (r=0,74)</td>
+            <td class="py-2.5 pr-3 text-center"><span class="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold bg-amber-500/15 text-amber-300 border border-amber-500/25"><svg class="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 20 20"><path d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"/></svg>Parc. Confirmada</span></td>
+            <td class="py-2.5 pr-3 text-center"><span class="inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-[10px] font-bold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30"><span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>Alto</span></td>
+            <td class="py-2.5 text-[11px] text-neutral-400 leading-snug">Protocolo "Deseja adicionar um sabor?" em todo pedido de café — baixo custo de implantação, impacto direto no ticket</td>
+          </tr>
+          <tr class="border-b border-white/[0.04]">
+            <td class="py-2.5 pr-3 text-[12px] font-semibold text-neutral-300">H9</td>
+            <td class="py-2.5 pr-3 text-[12px] text-neutral-300">36,7% da receita concentrada nas 3h de pico (8–10h)</td>
+            <td class="py-2.5 pr-3 text-center"><span class="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold bg-emerald-500/15 text-emerald-300 border border-emerald-500/25"><svg class="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Confirmada</span></td>
+            <td class="py-2.5 pr-3 text-center"><span class="inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-[10px] font-bold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30"><span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>Alto</span></td>
+            <td class="py-2.5 text-[11px] text-neutral-400 leading-snug">Escalar máximo de equipe no pico 8–10h; qualquer gargalo nessa janela compromete ~12% da receita diária</td>
+          </tr>
+          <tr class="border-b border-white/[0.04] border-t border-t-white/[0.04]">
+            <td class="py-2.5 pr-3 text-[12px] font-semibold text-neutral-300">H4</td>
+            <td class="py-2.5 pr-3 text-[12px] text-neutral-300">Crescimento homogêneo entre as 3 lojas (+101–105%)</td>
+            <td class="py-2.5 pr-3 text-center"><span class="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold bg-emerald-500/15 text-emerald-300 border border-emerald-500/25"><svg class="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Confirmada</span></td>
+            <td class="py-2.5 pr-3 text-center"><span class="inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-[10px] font-bold bg-sky-500/15 text-sky-300 border border-sky-500/30"><span class="h-1.5 w-1.5 rounded-full bg-sky-400"></span>Médio</span></td>
+            <td class="py-2.5 text-[11px] text-neutral-400 leading-snug">Documentar o que funciona igualmente bem nas 3 lojas e formalizar playbook operacional padrão</td>
+          </tr>
+          <tr class="border-b border-white/[0.04]">
+            <td class="py-2.5 pr-3 text-[12px] font-semibold text-neutral-300">H5</td>
+            <td class="py-2.5 pr-3 text-[12px] text-neutral-300">Mix de categorias ligeiramente distinto por loja</td>
+            <td class="py-2.5 pr-3 text-center"><span class="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold bg-amber-500/15 text-amber-300 border border-amber-500/25"><svg class="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 20 20"><path d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"/></svg>Parc. Confirmada</span></td>
+            <td class="py-2.5 pr-3 text-center"><span class="inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-[10px] font-bold bg-sky-500/15 text-sky-300 border border-sky-500/30"><span class="h-1.5 w-1.5 rounded-full bg-sky-400"></span>Médio</span></td>
+            <td class="py-2.5 text-[11px] text-neutral-400 leading-snug">Customizar mix em destaque no cardápio e promoções locais conforme perfil de compra de cada loja</td>
+          </tr>
+          <tr class="border-b border-white/[0.04]">
+            <td class="py-2.5 pr-3 text-[12px] font-semibold text-neutral-300">H8</td>
+            <td class="py-2.5 pr-3 text-[12px] text-neutral-300">Coffee representa 39,5% da receita — motor do crescimento</td>
+            <td class="py-2.5 pr-3 text-center"><span class="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold bg-emerald-500/15 text-emerald-300 border border-emerald-500/25"><svg class="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Confirmada</span></td>
+            <td class="py-2.5 pr-3 text-center"><span class="inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-[10px] font-bold bg-sky-500/15 text-sky-300 border border-sky-500/30"><span class="h-1.5 w-1.5 rounded-full bg-sky-400"></span>Médio</span></td>
+            <td class="py-2.5 text-[11px] text-neutral-400 leading-snug">Proteger qualidade e disponibilidade do café; avaliar variedades premium como alavanca de ticket</td>
+          </tr>
+          <tr class="border-b border-white/[0.04]">
+            <td class="py-2.5 pr-3 text-[12px] font-semibold text-neutral-300">H10</td>
+            <td class="py-2.5 pr-3 text-[12px] text-neutral-300">Fins de semana têm padrão operacional igual a dias úteis</td>
+            <td class="py-2.5 pr-3 text-center"><span class="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold bg-rose-500/15 text-rose-300 border border-rose-500/25"><svg class="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>Refutada</span></td>
+            <td class="py-2.5 pr-3 text-center"><span class="inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-[10px] font-bold bg-sky-500/15 text-sky-300 border border-sky-500/30"><span class="h-1.5 w-1.5 rounded-full bg-sky-400"></span>Médio</span></td>
+            <td class="py-2.5 text-[11px] text-neutral-400 leading-snug">Revisar alocação de equipe: uniformizar escala entre semana e fim de semana; eliminar sobre- ou subalocação</td>
+          </tr>
+          <tr class="border-b border-white/[0.04] border-t border-t-white/[0.04]">
+            <td class="py-2.5 pr-3 text-[12px] font-semibold text-neutral-300">H1</td>
+            <td class="py-2.5 pr-3 text-[12px] text-neutral-300">Crescimento sazonal sustentado ao longo de Jan–Jun</td>
+            <td class="py-2.5 pr-3 text-center"><span class="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold bg-amber-500/15 text-amber-300 border border-amber-500/25"><svg class="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 20 20"><path d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"/></svg>Parc. Confirmada</span></td>
+            <td class="py-2.5 pr-3 text-center"><span class="inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-[10px] font-bold bg-neutral-600/30 text-neutral-400 border border-neutral-500/30"><span class="h-1.5 w-1.5 rounded-full bg-neutral-500"></span>Baixo</span></td>
+            <td class="py-2.5 text-[11px] text-neutral-400 leading-snug">Antecipar demanda crescente com estoque e escala — a tendência é externa, mas ops pode se preparar para ela</td>
+          </tr>
+          <tr>
+            <td class="py-2.5 pr-3 text-[12px] font-semibold text-neutral-300">H2</td>
+            <td class="py-2.5 pr-3 text-[12px] text-neutral-300">Queda de fevereiro é calendária (menos dias úteis)</td>
+            <td class="py-2.5 pr-3 text-center"><span class="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold bg-emerald-500/15 text-emerald-300 border border-emerald-500/25"><svg class="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Confirmada</span></td>
+            <td class="py-2.5 pr-3 text-center"><span class="inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-[10px] font-bold bg-neutral-600/30 text-neutral-400 border border-neutral-500/30"><span class="h-1.5 w-1.5 rounded-full bg-neutral-500"></span>Baixo</span></td>
+            <td class="py-2.5 text-[11px] text-neutral-400 leading-snug">Normalizar metas mensais por dias úteis; contextualizar resultados de meses curtos para a equipe de loja</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="mt-4 pt-4 border-t border-white/[0.06] flex flex-wrap gap-x-6 gap-y-1">
+      <p class="text-[10px] text-neutral-600">4 hipóteses <span class="text-emerald-400 font-semibold">Alto</span> — H3, H6, H7, H9</p>
+      <p class="text-[10px] text-neutral-600">4 hipóteses <span class="text-sky-400 font-semibold">Médio</span> — H4, H5, H8, H10</p>
+      <p class="text-[10px] text-neutral-600">2 hipóteses <span class="text-neutral-400 font-semibold">Baixo</span> — H1, H2</p>
+    </div>
+  </div>
+
+</div>
+</main>
+</div>
+
+<script>
+window.addEventListener("DOMContentLoaded", () => { lucide.createIcons(); });
+</script>
+</body>
+</html>

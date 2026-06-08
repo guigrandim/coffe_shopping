@@ -2,6 +2,8 @@
 
 Dashboard analítico para uma rede de cafeterias com 3 unidades, construído para responder 10 hipóteses de negócio e identificar as principais alavancas de crescimento de receita.
 
+Link do dashboard:https://guigrandim.github.io/coffe_shopping/
+
 ---
 
 ## 🚨 Problema de Negócio

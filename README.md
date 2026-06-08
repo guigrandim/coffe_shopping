@@ -4,13 +4,17 @@ Dashboard analítico para uma rede de cafeterias com 3 unidades, construído par
 
 Link do dashboard:https://guigrandim.github.io/coffe_shopping/
 
+<p align="center">
+<img src="./assets/img/fluxo.png" alt="Coffee Shop Analytics" width="800px">
+</p>
+
 ---
 
 ## 🚨 Problema de Negócio
 
 Uma rede de 3 cafeterias (Astoria, Hell's Kitchen e Lower Manhattan) encerrou o primeiro semestre de 2023 com crescimento expressivo de faturamento. A gestão, no entanto, não sabia **por que** a receita cresceu — se foi aumento de clientes, aumento do ticket médio por visita, melhora de mix de produtos ou concentração em poucas lojas — e tampouco conhecia as **alavancas ainda não exploradas** que poderiam ampliar esse resultado.
 
-Sem clareza sobre a origem do crescimento, ações de expansão, escalonamento de equipe e estratégias de venda poderiam ser tomadas com base em premissas erradas.
+Sem clareza sobre a origem do crescimento, ações de expansão, escalonamento de equipe e estratégias de venda poderiam ocorrer tomadas de decisão com base em premissas erradas.
 
 **Pergunta central:** Onde estão as maiores oportunidades de receita que a rede ainda não está capturando?
 
@@ -20,7 +24,7 @@ Sem clareza sobre a origem do crescimento, ações de expansão, escalonamento d
 
 A solução foi estruturada em 4 etapas:
 
-1. **Entendimento dos dados** — análise exploratória do dataset transacional (149.116 linhas), mapeamento do schema, identificação de quirks de formatação (moeda em BRL com vírgula decimal, datas DD-MM-YYYY) e limpeza dos dados antes da análise.
+1. **Entendimento dos dados** — análise exploratória do dataset transacional (149.116 linhas), mapeamento do schema, identificação de formatação (moeda em BRL com vírgula decimal, datas DD-MM-YYYY) e limpeza dos dados antes da análise.
 
 2. **Formulação de hipóteses** — 10 hipóteses de negócio ordenadas da maior para a menor alavanca potencial, cobrindo crescimento, concentração horária, mix de produtos, comportamento por loja e padrões temporais.
 

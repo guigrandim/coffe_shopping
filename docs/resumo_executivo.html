@@ -94,7 +94,7 @@ ul.bullets.neutral li::before { background: #737373; }
         <li><span class="text-[12px] text-neutral-300">O faturamento cresceu <strong class="text-emerald-300">+103,8%</strong> de janeiro (R$81.678) a junho (R$166.486) — crescimento real e sustentado ao longo de todo o período.</span></li>
         <li><span class="text-[12px] text-neutral-300">O crescimento é <strong class="text-white">inteiramente volumétrico</strong>: o número de transações mais que dobrou (+104%), enquanto o ticket médio permaneceu flat em R$4,69 durante os 6 meses.</span></li>
         <li><span class="text-[12px] text-neutral-300">A queda de fevereiro é <strong class="text-white">calendária</strong> (mês mais curto), não operacional — a receita por dia útil em fevereiro superou a de janeiro.</span></li>
-        <li><span class="text-[12px] text-neutral-300">A média diária de transações saltou de <strong class="text-white">2.635/dia</strong> em janeiro para <strong class="text-white">5.550/dia</strong> em junho.</span></li>
+        <li><span class="text-[12px] text-neutral-300">A receita diária média saltou de <strong class="text-white">R$2.635/dia</strong> em janeiro para <strong class="text-white">R$5.550/dia</strong> em junho.</span></li>
       </ul>
     </div>
 
@@ -127,6 +127,23 @@ ul.bullets.neutral li::before { background: #737373; }
         <li><span class="text-[12px] text-neutral-300">Branded products têm ticket médio de R$18,22 — o segundo produto de maior valor unitário, ainda subexplorado nas vendas.</span></li>
         <li><span class="text-[12px] text-neutral-300">Syrups e flavours têm forte associação com o ticket de café por hora — horas com mais personalização têm ticket consistentemente mais alto.</span></li>
         <li><span class="text-[12px] text-neutral-300">Bakery e Tea têm ticket abaixo de R$4,32 — produtos de volume, não de margem.</span></li>
+      </ul>
+    </div>
+
+    <!-- Trajetória de Categorias (Cohort Simulada) -->
+    <div class="bg-gradient-to-br from-rose-500/[0.06] to-white/0 rounded-3xl border border-rose-500/[0.15] p-5 relative" style="--border-gradient:linear-gradient(180deg,rgba(251,113,133,0.15),rgba(255,255,255,0));--border-radius-before:24px">
+      <div class="flex items-center gap-2 mb-4">
+        <div class="h-6 w-6 rounded-xl bg-rose-500/15 border border-rose-500/25 flex items-center justify-center">
+          <i data-lucide="git-branch" class="w-3.5 h-3.5 text-rose-400"></i>
+        </div>
+        <p class="text-[13px] font-semibold text-white tracking-tight">Trajetória de Categorias</p>
+        <span class="inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-[10px] font-semibold bg-rose-500/15 text-rose-300 border border-rose-500/25 ml-auto"><span class="h-1.5 w-1.5 rounded-full bg-rose-400"></span>Outlier detectado</span>
+      </div>
+      <ul class="bullets rose space-y-0.5">
+        <li><span class="text-[12px] text-neutral-300">Indexando a receita de cada categoria a <strong class="text-white">Jan = 100</strong>, a maioria das categorias cresceu entre +89% e +114% no semestre — com duas exceções abaixo da média.</span></li>
+        <li><span class="text-[12px] text-neutral-300"><strong class="text-rose-300">Branded colapsou para índice 65 em fevereiro</strong> (–35% em relação à base) e terminou o semestre em +81% — 20 pp abaixo da média. Coffee Beans (+89%) e Pack. Chocolate (+90%) também ficaram abaixo da média, mas sem a anomalia de fevereiro e sem impacto em ticket.</span></li>
+        <li><span class="text-[12px] text-neutral-300"><strong class="text-emerald-300">Loose Tea</strong> foi o crescimento mais acelerado: chegou a índice 214 em junho (+114%). Embora represente volume menor, a trajetória indica demanda crescente e subatendida.</span></li>
+        <li><span class="text-[12px] text-neutral-300"><strong class="text-white">51% da receita de junho é incremental</strong> em relação à base de janeiro — o negócio dobrou capacidade sem nenhuma ação rastreável de retenção de clientes, o que torna o Branded ainda mais anômalo.</span></li>
       </ul>
     </div>
 
@@ -177,6 +194,7 @@ ul.bullets.neutral li::before { background: #737373; }
         <li><span class="text-[12px] text-neutral-300"><strong class="text-white">Customizar mix em destaque por loja</strong> conforme o perfil de compra local — Astoria, Hell's Kitchen e Lower Manhattan têm pequenas preferências distintas exploráveis.</span></li>
         <li><span class="text-[12px] text-neutral-300"><strong class="text-white">Uniformizar escala de fim de semana</strong> igual à de dias úteis — o comportamento é idêntico e a operação deve refletir isso.</span></li>
         <li><span class="text-[12px] text-neutral-300"><strong class="text-white">Avaliar variedades premium de café</strong> como alavanca de ticket — o café já domina 39,5% da receita; uma linha especial pode elevar o ticket médio sem mudar volume.</span></li>
+        <li><span class="text-[12px] text-neutral-300"><strong class="text-white">Investigar o colapso de Branded em fevereiro</strong> — única categoria com queda de –35% e crescimento 20 pp abaixo das demais no semestre. Branded tem ticket de R$18,22 (4× o café); estoque, visibilidade no cardápio e posicionamento são os vetores mais prováveis.</span></li>
       </ul>
     </div>
 
@@ -191,6 +209,7 @@ ul.bullets.neutral li::before { background: #737373; }
         <li><span class="text-[11px] text-neutral-500">Não há identificador de cliente — impossível calcular frequência de retorno, LTV ou cohort de novos vs. recorrentes.</span></li>
         <li><span class="text-[11px] text-neutral-500">Não há custo de produto — toda análise é por receita; margem e lucratividade por categoria requerem dados adicionais.</span></li>
         <li><span class="text-[11px] text-neutral-500">A relação entre sabores e ticket mais alto foi verificada por horário, não por pedido individual — a conclusão é indicativa, não definitiva.</span></li>
+        <li><span class="text-[11px] text-neutral-500">A trajetória de categorias usa <strong class="text-neutral-400">cohort simulada</strong> — sem ID de cliente, cada categoria é tratada como coorte; a análise mede evolução de mix, não comportamento de recompra individual.</span></li>
         <li><span class="text-[11px] text-neutral-500">Base: <strong class="text-neutral-400">149.116 vendas</strong> · 3 lojas · Astoria, Hell's Kitchen, Lower Manhattan.</span></li>
       </ul>
     </div>
@@ -202,7 +221,7 @@ ul.bullets.neutral li::before { background: #737373; }
     <p class="text-[10px] text-neutral-700">Coffee Shop Analytics · Análise completa de Jan–Jun 2023 · Fonte: planilha de dados das lojas</p>
     <a href="index.html" class="text-[10px] text-neutral-600 hover:text-neutral-400 transition-colors inline-flex items-center gap-1">
       <i data-lucide="arrow-left" class="w-3 h-3"></i>
-      Dashboard completo com 10 hipóteses testadas
+      Dashboard completo com 11 hipóteses testadas
     </a>
   </div>
 

@@ -1,11 +1,15 @@
 # ☕ Coffee Shop Analytics
 
-Dashboard analítico para uma rede de cafeterias com 3 unidades, construído para responder 10 hipóteses de negócio e identificar as principais alavancas de crescimento de receita.
+Dashboard analítico para uma rede de cafeterias com 3 unidades, construído para responder 11 hipóteses de negócio e identificar as principais alavancas de crescimento de receita.
 
-Link do dashboard:https://guigrandim.github.io/coffe_shopping/
+Link do dashboard: https://guigrandim.github.io/coffe_shopping/
 
 <p align="center">
-<img src="./assets/img/fluxo.png" alt="Coffee Shop Analytics" width="800px">
+<img src="./assets/img/dashboard-screenshot.png" alt="Coffee Shop Analytics Dashboard" width="100%">
+</p>
+
+<p align="center">
+<img src="./assets/img/fluxo.png" alt="Fluxograma da solução" width="800px">
 </p>
 
 ---
@@ -26,11 +30,11 @@ A solução foi estruturada em 4 etapas:
 
 1. **Entendimento dos dados** — análise exploratória do dataset transacional (149.116 linhas), mapeamento do schema, identificação de formatação (moeda em BRL com vírgula decimal, datas DD-MM-YYYY) e limpeza dos dados antes da análise.
 
-2. **Formulação de hipóteses** — 10 hipóteses de negócio ordenadas da maior para a menor alavanca potencial, cobrindo crescimento, concentração horária, mix de produtos, comportamento por loja e padrões temporais.
+2. **Formulação de hipóteses** — 11 hipóteses de negócio ordenadas da maior para a menor alavanca potencial, cobrindo crescimento, concentração horária, mix de produtos, comportamento por loja, padrões temporais e análise de cohort simulada.
 
 3. **Teste das hipóteses** — cada hipótese foi testada com os dados reais: análise descritiva, correlações, decomposição de receita por dimensão (hora, loja, categoria, mês) e cálculo de impacto financeiro estimado.
 
-4. **Visualização e síntese** — dashboard interativo em HTML estático com 10 cards analíticos (`design-system/index.html`) e resumo executivo com recomendações priorizadas (`design-system/resumo_executivo.html`).
+4. **Visualização e síntese** — dashboard interativo em HTML estático com 11 cards analíticos (`docs/index.html`) e resumo executivo com recomendações priorizadas (`docs/resumo_executivo.html`).
 
 **Ferramentas:** Python (pandas), HTML, TailwindCSS, SVG inline para gráficos, Lucide Icons, Google Fonts (Geist, Plus Jakarta Sans).
 
@@ -56,10 +60,12 @@ coffee_shop/
 ├── assets/
 │   └── data/
 │       └── coffee-shop-dataset.csv
-└── design-system/
-    ├── index.html              # Dashboard principal (10 hipóteses)
-    ├── resumo_executivo.html   # Resumo executivo para gestão
-    └── assets/                 # CSS, fontes e bibliotecas JS
+├── docs/
+│   ├── index.html              # Dashboard principal (11 hipóteses)
+│   ├── resumo_executivo.html   # Resumo executivo para gestão
+│   └── assets/                 # CSS, fontes e bibliotecas JS
+└── notebooks/
+    └── analysis.ipynb          # EDA: limpeza, agregações, correlações
 ```
 
 ### Visualizações Desenvolvidas
@@ -72,14 +78,15 @@ coffee_shop/
 - Stacked bar de participação de lojas por mês
 - Tabela de performance por loja com crescimento
 - Gráfico de linha por dia da semana (fins de semana vs. úteis)
+- Heatmap de cohort simulada: 9 categorias × 6 meses, receita indexada a Jan=100
 
 ---
 
-## 💡 Top 3 Insights
+## 💡 Top Insights
 
 ### 1. 📈 O crescimento é 100% volumétrico — o ticket nunca variou
 
-O faturamento cresceu **+103,8%** de janeiro (R$81.678) a junho (R$166.486), mas o ticket médio ficou flat em **R$4,69** durante todos os 6 meses. O crescimento veio inteiramente do aumento no número de transações (+104%: de 17k para 35k por mês).
+O faturamento cresceu **+103,8%** de janeiro (R$81.678) a junho (R$166.486), mas o ticket médio permaneceu praticamente estável — variou apenas de **R$4,72 em janeiro** para **R$4,71 em junho** (+0,1%), com média global de R$4,69 no semestre. O crescimento veio inteiramente do aumento no número de transações (+104%: de 17k para 35k por mês).
 
 **Implicação:** A rede dobrou de tamanho sem nenhuma ação de precificação ou upsell. Qualquer melhora no ticket médio representa receita incremental pura — sem precisar atrair um único novo cliente.
 
@@ -101,11 +108,23 @@ Os horários das **8h às 10h** concentram mais de 1/3 de toda a receita de um d
 
 ---
 
+### 4. 📉 Branded descolou do mercado — a única categoria que caiu em fevereiro
+
+A cohort simulada indexa a receita de cada categoria a Jan=100 e rastreia a trajetória ao longo do semestre. **Branded é o principal outlier negativo**: a maioria das categorias cresceu entre +89% e +114% no semestre — Branded terminou em +81% e colapsou para índice 65 em fevereiro (–35% em relação à base). Coffee Beans (+89%) e Pack. Chocolate (+90%) também ficaram abaixo da média, mas sem a anomalia de fevereiro.
+
+Loose Tea, no outro extremo, chegou a índice 214 em junho (+114%) — o crescimento mais acelerado de qualquer categoria.
+
+A decomposição de receita mostra que **51% da receita de junho é incremental** em relação à base de janeiro: o negócio dobrou demanda sem nenhuma ação rastreável de retenção.
+
+**Implicação:** O underperformance de Branded é um sinal de problema operacional, de posicionamento ou de visibilidade no cardápio — não de demanda de mercado. Investigar o colapso de fevereiro pode revelar uma alavanca de fácil correção com retorno relevante no ticket (Branded: R$18,22/txn, 4× o ticket do café comum).
+
+---
+
 ## 📊 Resultados
 
 | KPI | Valor |
 |---|---|
-| Faturamento total (Jan–Jun 2023) | R$ 698.000 |
+| Faturamento total (Jan–Jun 2023) | R$ 698.812 |
 | Crescimento do período | +103,8% (Jan → Jun) |
 | Total de transações | 149.116 itens |
 | Ticket médio por item | R$ 4,69 (estável) |
@@ -115,6 +134,9 @@ Os horários das **8h às 10h** concentram mais de 1/3 de toda a receita de um d
 | Participação do café na receita | 39,5% do total |
 | Concentração no pico 8h–10h | 36,7% da receita diária |
 | Correlação syrups × ticket | r = 0,74 |
+| Receita incremental (Jun vs Jan) | 51% acima da base de janeiro |
+| Branded — queda em fevereiro | –35% (índice 65 vs base 100) |
+| Loose Tea — maior crescimento | +114% no semestre (índice 214) |
 
 ---
 
@@ -134,7 +156,9 @@ A principal descoberta, porém, é que **a rede cresceu sem explorar nenhuma ala
 
 4. 📋 **Formalizar o playbook operacional** — a homogeneidade entre lojas (+101% a +105%) indica que as práticas atuais funcionam. Documentar e formalizar cria a base para treinamento e expansão futura.
 
-**Limitações da análise:** Os dados cobrem apenas 6 meses sem comparativo histórico. Não há identificador de cliente (impossível calcular LTV ou cohort de retenção) nem dados de custo (análise de margem requer informações adicionais).
+5. 🔍 **Investigar o colapso de Branded em fevereiro** — única categoria com queda de –35% em relação à base, crescendo 20 pp abaixo da média do semestre. Avaliar estoque, visibilidade no cardápio e posicionamento. Se corrigida, Branded (R$18,22/txn) tem potencial de recuperação imediata no ticket médio da rede.
+
+**Limitações da análise:** Os dados cobrem apenas 6 meses sem comparativo histórico. Não há identificador de cliente (impossível calcular LTV ou cohort de retenção real); a cohort simulada usa categoria como proxy de coorte, o que é uma aproximação metodológica. Dados de custo não estão disponíveis (análise de margem requer informações adicionais).
 
 ---
 

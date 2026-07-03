@@ -1,8 +1,12 @@
-# ☕ Coffee Shop Analytics
+# ☕ Coffee Shop Analytics — de "a receita cresceu" a "por que ela cresceu"
 
-Dashboard analítico para uma rede de cafeterias com 3 unidades, construído para responder 11 hipóteses de negócio e identificar as principais alavancas de crescimento de receita.
+Dashboard analítico estático para uma rede de 3 cafeterias, construído para testar 11 hipóteses de negócio e identificar as alavancas de receita ainda não exploradas no primeiro semestre de 2023.
 
-Link do dashboard: https://guigrandim.github.io/coffe_shopping/
+![Python](https://img.shields.io/badge/Python-pandas%20%7C%20numpy-3776AB?logo=python&logoColor=white)
+![Dashboard](https://img.shields.io/badge/Dashboard-TailwindCSS-38BDF8?logo=tailwindcss&logoColor=white)
+![License](https://img.shields.io/badge/license-MIT-green)
+
+🔗 **Dashboard em produção:** https://guigrandim.github.io/coffe_shopping/
 
 <p align="center">
 <img src="./assets/img/dashboard-screenshot.png" alt="Coffee Shop Analytics Dashboard" width="100%">
@@ -12,15 +16,22 @@ Link do dashboard: https://guigrandim.github.io/coffe_shopping/
 <img src="./assets/img/fluxo.png" alt="Fluxograma da solução" width="800px">
 </p>
 
+### 🎯 Destaques
+- Testei 11 hipóteses de negócio sobre 149.116 transações reais e identifiquei que **100% do crescimento de +103,8% na receita é volumétrico** — o ticket médio nunca se moveu, expondo uma alavanca de upsell inexplorada.
+- Encontrei uma correlação de **r = 0,74** entre personalização de sabor (syrups) e ticket médio por hora, virando a base de uma recomendação operacional de baixo custo e alto ROI.
+- Entreguei um dashboard estático (HTML + TailwindCSS + SVG inline), sem backend nem build step, publicado via GitHub Pages e pronto para ser aberto por qualquer gestor sem instalar nada.
+
 ---
 
 ## 🚨 Problema de Negócio
 
 Uma rede de 3 cafeterias (Astoria, Hell's Kitchen e Lower Manhattan) encerrou o primeiro semestre de 2023 com crescimento expressivo de faturamento. A gestão, no entanto, não sabia **por que** a receita cresceu — se foi aumento de clientes, aumento do ticket médio por visita, melhora de mix de produtos ou concentração em poucas lojas — e tampouco conhecia as **alavancas ainda não exploradas** que poderiam ampliar esse resultado.
 
-Sem clareza sobre a origem do crescimento, ações de expansão, escalonamento de equipe e estratégias de venda poderiam ocorrer tomadas de decisão com base em premissas erradas.
+Sem clareza sobre a origem do crescimento, decisões de expansão, escalonamento de equipe e estratégias de venda corriam o risco de se apoiar em premissas erradas.
 
 **Pergunta central:** Onde estão as maiores oportunidades de receita que a rede ainda não está capturando?
+
+**Minha tarefa:** Conduzir a análise exploratória completa do dataset transacional, formular e testar as hipóteses de negócio mais relevantes, e traduzir os achados em um dashboard e resumo executivo prontos para orientar decisão de gestão.
 
 ---
 
@@ -36,7 +47,7 @@ A solução foi estruturada em 4 etapas:
 
 4. **Visualização e síntese** — dashboard interativo em HTML estático com 11 cards analíticos (`docs/index.html`) e resumo executivo com recomendações priorizadas (`docs/resumo_executivo.html`).
 
-**Ferramentas:** Python (pandas), HTML, TailwindCSS, SVG inline para gráficos, Lucide Icons, Google Fonts (Geist, Plus Jakarta Sans).
+**Ferramentas:** Python (pandas, numpy), Jupyter, HTML, TailwindCSS, SVG inline para gráficos, Lucide Icons, Google Fonts (Geist, Plus Jakarta Sans).
 
 ---
 
@@ -53,21 +64,6 @@ A solução foi estruturada em 4 etapas:
 | Moeda | Real Brasileiro (R$) — formato `"R$ 45,00"` |
 | Granularidade | Item por item (cada linha = 1 produto vendido) |
 
-### Estrutura do Projeto
-
-```
-coffee_shop/
-├── assets/
-│   └── data/
-│       └── coffee-shop-dataset.csv
-├── docs/
-│   ├── index.html              # Dashboard principal (11 hipóteses)
-│   ├── resumo_executivo.html   # Resumo executivo para gestão
-│   └── assets/                 # CSS, fontes e bibliotecas JS
-└── notebooks/
-    └── analysis.ipynb          # EDA: limpeza, agregações, correlações
-```
-
 ### Visualizações Desenvolvidas
 
 - Gráfico de barras mensais (crescimento volumétrico)
@@ -79,6 +75,36 @@ coffee_shop/
 - Tabela de performance por loja com crescimento
 - Gráfico de linha por dia da semana (fins de semana vs. úteis)
 - Heatmap de cohort simulada: 9 categorias × 6 meses, receita indexada a Jan=100
+
+### Estrutura do Projeto
+
+```
+coffee_shop/
+├── assets/
+│   ├── data/
+│   │   ├── coffee-shop-dataset.csv   # 149.116 transações, Jan–Jun 2023
+│   │   └── hypothesis_data.json      # agregados usados pelo dashboard
+│   └── img/                          # screenshots e gráficos exportados
+├── docs/
+│   ├── index.html                    # Dashboard principal (11 hipóteses)
+│   ├── resumo_executivo.html         # Resumo executivo para gestão
+│   └── assets/                       # CSS, fontes e bibliotecas JS bundladas
+├── notebooks/
+│   └── analysis.ipynb                # EDA: limpeza, agregações, correlações
+├── generate_dashboard.py             # Script auxiliar de geração
+└── index.html                        # Redirect raiz → docs/
+```
+
+### Como Executar Localmente
+
+O dashboard é estático e não precisa de servidor — basta abrir `docs/index.html` no navegador. Para reproduzir a análise no notebook:
+
+```bash
+git clone <repo-url>
+cd coffee_shop
+pip install -r requirements.txt   # pandas, numpy
+jupyter lab notebooks/analysis.ipynb
+```
 
 ---
 
@@ -122,6 +148,8 @@ A decomposição de receita mostra que **51% da receita de junho é incremental*
 
 ## 📊 Resultados
 
+### Indicadores extraídos dos dados
+
 | KPI | Valor |
 |---|---|
 | Faturamento total (Jan–Jun 2023) | R$ 698.812 |
@@ -138,13 +166,15 @@ A decomposição de receita mostra que **51% da receita de junho é incremental*
 | Branded — queda em fevereiro | –35% (índice 65 vs base 100) |
 | Loose Tea — maior crescimento | +114% no semestre (índice 214) |
 
+### Resultado da Entrega
+
+O que estava disperso em uma planilha transacional de 149 mil linhas virou um dashboard estático de 11 cards e um resumo executivo, publicáveis via GitHub Pages e navegáveis por qualquer gestor sem depender de análise manual repetida a cada pergunta de negócio. As 11 hipóteses formuladas cobrem as perguntas recorrentes de gestão (crescimento, sazonalidade, mix, comportamento por loja) em um único lugar, substituindo o ciclo de "pedir um corte de dados → esperar → repetir" por consulta direta ao dashboard.
+
 ---
 
 ## ✅ Conclusões
 
-O crescimento da rede é real, sustentado e estruturalmente saudável — todas as 3 lojas crescem na mesma proporção, o que indica um modelo operacional que funciona e pode ser replicado.
-
-A principal descoberta, porém, é que **a rede cresceu sem explorar nenhuma alavanca de ticket**. Isso é uma limitação do crescimento atual, mas também significa que o upside disponível é imediato e de baixo custo:
+O crescimento da rede é real, sustentado e estruturalmente saudável — todas as 3 lojas crescem na mesma proporção, o que indica um modelo operacional que funciona e pode ser replicado. A análise revelou, porém, que esse crescimento foi 100% volumétrico e que a alavanca de ticket médio permanece intocada — transformando um dado que parecia positivo à primeira vista em uma oportunidade concreta e de baixo custo para a gestão agir.
 
 **Ações prioritárias recomendadas:**
 
@@ -163,3 +193,19 @@ A principal descoberta, porém, é que **a rede cresceu sem explorar nenhuma ala
 ---
 
 *📁 Dados: coffee-shop-dataset.csv · 📅 Período: Jan–Jun 2023 · 🏪 3 lojas · 🔢 149.116 transações*
+
+## 🧰 Skills Demonstradas
+
+- **Limpeza de dados não padronizados** — normalização de moeda BRL (`"R$ 45,00"` → float) e datas day-first via pandas.
+- **Formulação e teste de hipóteses de negócio** — decomposição de receita por dimensão (hora, loja, categoria, mês) para isolar a causa raiz do crescimento.
+- **Análise de correlação aplicada a decisão operacional** — tradução de r = 0,74 em uma recomendação de baixo custo e alto ROI, não apenas um número em um relatório.
+- **Construção de dashboard estático sem dependências de backend** — HTML + TailwindCSS + SVG inline, publicável via GitHub Pages sem build step.
+
+## 👩‍💻 Autor
+
+Desenvolvido por Guilherme Grandim como um projeto de portfólio em ciência de dados.
+Gmail: gui.grandim@gmail.com
+
+## 📄 Licença
+
+Este projeto está sob a licença MIT — veja [LICENSE](./LICENSE) para detalhes.
